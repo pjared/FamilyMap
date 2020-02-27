@@ -1,0 +1,8 @@
+.idea/
+libs/
+passoffFiles/
+target/
+web/
+FamilyMapServerStudent.iml
+pom.xml
+FMS_Passoff.log

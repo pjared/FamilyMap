@@ -1,0 +1,3 @@
+Connection refused to server test
+
+ClearService class, ask about exception throwing

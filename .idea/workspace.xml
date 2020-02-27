@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="ee26081b-596c-4861-8eea-3bd93d7c60de" name="Default Changelist" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="CodeInsightWorkspaceSettings">
+    <option name="optimizeImportsOnTheFly" value="true" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectId" id="1YKWmnCpziJ28vEypXJFg5UQFuW" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../Family-Map" />
+    <property name="restartRequiresConfirmation" value="false" />
+    <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\MysticWolf\IdeaProjects\FamilyMapServerStudent-master\src\main\java" />
+      <recent name="C:\Users\MysticWolf\IdeaProjects\FamilyMapServerStudent-master\src\main" />
+      <recent name="C:\Users\MysticWolf\IdeaProjects\FamilyMapServerStudent-master\src" />
+    </key>
+  </component>
+  <component name="RunManager" selected="JUnit.ServerTest.testClear">
+    <configuration name="HelloWorld" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="HelloWorld" />
+      <module name="FamilyMapServerStudent" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Server" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Handlers.Server" />
+      <module name="FamilyMapServerStudent" />
+      <option name="PROGRAM_PARAMETERS" value="8080" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="Handlers.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ServerTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="FamilyMapServerStudent" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="passoff.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="passoff" />
+      <option name="MAIN_CLASS_NAME" value="passoff.ServerTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ServerTest.testClear" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="FamilyMapServerStudent" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="passoff.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="passoff" />
+      <option name="MAIN_CLASS_NAME" value="passoff.ServerTest" />
+      <option name="METHOD_NAME" value="testClear(org.junit.jupiter.api.TestInfo)" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ServerTest.testFileHandler" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="FamilyMapServerStudent" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="passoff.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="passoff" />
+      <option name="MAIN_CLASS_NAME" value="passoff.ServerTest" />
+      <option name="METHOD_NAME" value="testFileHandler(org.junit.jupiter.api.TestInfo)" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <list>
+      <item itemvalue="Application.HelloWorld" />
+      <item itemvalue="Application.Server" />
+      <item itemvalue="JUnit.ServerTest" />
+      <item itemvalue="JUnit.ServerTest.testFileHandler" />
+      <item itemvalue="JUnit.ServerTest.testClear" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JUnit.ServerTest.testClear" />
+        <item itemvalue="Application.Server" />
+        <item itemvalue="JUnit.ServerTest" />
+        <item itemvalue="JUnit.ServerTest.testFileHandler" />
+        <item itemvalue="Application.HelloWorld" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="ee26081b-596c-4861-8eea-3bd93d7c60de" name="Default Changelist" comment="" />
+      <created>1582691927976</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1582691927976</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="828" y="181" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1582767366026">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="828" y="181" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1582767366026" />
+    <state x="1213" y="333" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1582695220369">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="1213" y="333" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1920.1040@0.0.1920.1040" timestamp="1582695220369" />
+    <state x="1220" y="281" key="FileChooserDialogImpl" timestamp="1582694939411">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="1220" y="281" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1582694939411" />
+    <state width="1877" height="242" key="GridCell.Tab.0.bottom" timestamp="1582778212271">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="242" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1582778212271" />
+    <state width="1877" height="242" key="GridCell.Tab.0.center" timestamp="1582778212271">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="242" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1582778212271" />
+    <state width="1877" height="242" key="GridCell.Tab.0.left" timestamp="1582778212271">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="242" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1582778212271" />
+    <state width="1877" height="242" key="GridCell.Tab.0.right" timestamp="1582778212271">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="242" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1582778212271" />
+    <state width="1877" height="242" key="GridCell.Tab.1.bottom" timestamp="1582778212271">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="242" key="GridCell.Tab.1.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1582778212271" />
+    <state width="1877" height="242" key="GridCell.Tab.1.center" timestamp="1582778212271">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="242" key="GridCell.Tab.1.center/0.0.1920.1040@0.0.1920.1040" timestamp="1582778212271" />
+    <state width="1877" height="242" key="GridCell.Tab.1.left" timestamp="1582778212271">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="242" key="GridCell.Tab.1.left/0.0.1920.1040@0.0.1920.1040" timestamp="1582778212271" />
+    <state width="1877" height="242" key="GridCell.Tab.1.right" timestamp="1582778212271">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="242" key="GridCell.Tab.1.right/0.0.1920.1040@0.0.1920.1040" timestamp="1582778212271" />
+    <state x="1147" y="347" key="com.intellij.ide.util.TipDialog" timestamp="1582767268035">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="1147" y="347" key="com.intellij.ide.util.TipDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1582767268035" />
+    <state x="1163" y="441" key="vcs.readOnlyHandler.ReadOnlyStatusDialog" timestamp="1582775634932">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="1163" y="441" key="vcs.readOnlyHandler.ReadOnlyStatusDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1582775634932" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/test/java/passoff/ServerTest.java</url>
+          <line>632</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+</project>

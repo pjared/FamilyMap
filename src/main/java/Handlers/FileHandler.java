@@ -13,9 +13,16 @@ class FileHandler implements HttpHandler {
     @Override
     public void handle(HttpExchange httpExchange) throws IOException {
         String urlPath = httpExchange.getRequestURI().toString();
-        File file;
-        if (urlPath == null || urlPath.equals("/") || urlPath.equals("/index.html")) {
-            file = new File("web/index.html");
+        String filePath = "web" + urlPath;
+        File file = new File(filePath);
+        if(file.exists()) {
+            if (urlPath == null || urlPath.equals("/") || urlPath.equals("/index.html")) {
+                file = new File("web/index.html");
+                httpExchange.sendResponseHeaders(200, file.length());
+                try (OutputStream os = httpExchange.getResponseBody()) {
+                    Files.copy(file.toPath(), os);
+                }
+            }
             httpExchange.sendResponseHeaders(200, file.length());
             try (OutputStream os = httpExchange.getResponseBody()) {
                 Files.copy(file.toPath(), os);
@@ -27,6 +34,5 @@ class FileHandler implements HttpHandler {
                 Files.copy(file.toPath(), os);
             }
         }
-
     }
 }

@@ -1,6 +1,6 @@
 package Requests;
 
-public class registerRequest {
+public class RegisterRequest {
     //services are going to check json for files and then pass it onto DAO
     String userName;
     String password;
@@ -9,7 +9,7 @@ public class registerRequest {
     String lastName;
     char gender;
 
-    public registerRequest(String userName, String password, String email, String firstName, String lastName, char gender) {
+    public RegisterRequest(String userName, String password, String email, String firstName, String lastName, char gender) {
         this.userName = userName;
         this.password = password;
         this.email = email;

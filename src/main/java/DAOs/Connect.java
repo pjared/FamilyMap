@@ -66,7 +66,6 @@ public class Connect {
                 //will rollback any changes we made during this connection
                 conn.rollback();
             }
-
             conn.close();
             conn = null;
         } catch (SQLException e) {

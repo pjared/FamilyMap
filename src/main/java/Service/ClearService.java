@@ -10,14 +10,17 @@ public class ClearService {
      * This function will clear the entire database
      * @return the result object returned
      */
-    public ClearResult clear() {
+    public ClearResult clear() throws DataAccessException {
         ClearResult cleared = new ClearResult();
         //call the DAO clears
         Connect conn = new Connect();
         try {
+            conn.openConnection();
             conn.clearTables();
+            conn.closeConnection(true);
         } catch (DataAccessException e) {
-            //Didn't work. Should return the fail method
+            conn.closeConnection(false);
+
             cleared.setMessage("Database could not be accessed. Did not delete data");
             cleared.setSuccess(false);
             e.printStackTrace();

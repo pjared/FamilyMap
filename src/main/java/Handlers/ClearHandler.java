@@ -1,5 +1,6 @@
 package Handlers;
 
+import DAOs.DataAccessException;
 import Service.ClearService;
 import com.google.gson.Gson;
 import com.sun.net.httpserver.Headers;
@@ -22,7 +23,13 @@ public class ClearHandler extends FileHandler {
                 OutputStream respBody = exchange.getResponseBody();
 
                 ClearService newClear = new ClearService();
-                String respData = (new Gson().toJson(newClear.clear()));;
+                String respData = null;
+                try {
+                    respData = (new Gson().toJson(newClear.clear()));
+                } catch (DataAccessException e) {
+                    e.printStackTrace();
+                }
+
                 //What I need to do here is convert the clear response object to json through gson
                 //need to make the call to the clear service here
                 writeString(respData, respBody);

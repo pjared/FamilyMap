@@ -1,6 +1,6 @@
 package Service;
 
-import Requests.registerRequest;
+import Requests.RegisterRequest;
 import Results.RegisterResult;
 
 public class RegisterService {
@@ -9,8 +9,9 @@ public class RegisterService {
      * @param r the object made from the API call
      * @return the result of the function call
      */
-    RegisterResult register(registerRequest r) {
+    public RegisterResult register(RegisterRequest r) {
         RegisterResult newRegister = new RegisterResult();
+        //need to write this to make sure it works
         return newRegister;
     }
 

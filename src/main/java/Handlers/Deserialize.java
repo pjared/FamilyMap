@@ -11,7 +11,6 @@ public class Deserialize {
 
 
     public static String serialize(Object inputType) {
-        //return (new Gson()).fromJson(value, returnType);
         return (new Gson().toJson(inputType));
     }
 

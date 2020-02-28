@@ -35,7 +35,7 @@
   </component>
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../Family-Map" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.0" />
@@ -49,14 +49,7 @@
       <recent name="C:\Users\MysticWolf\IdeaProjects\FamilyMapServerStudent-master\src" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.Server">
-    <configuration name="HelloWorld" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="HelloWorld" />
-      <module name="FamilyMapServerStudent" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
+  <component name="RunManager" selected="JUnit.EventDAOTest.testClear">
     <configuration name="Server" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Handlers.Server" />
       <module name="FamilyMapServerStudent" />
@@ -67,6 +60,37 @@
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="EventDAOTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="FamilyMapServerStudent" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="test.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="test.EventDAOTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="EventDAOTest.testClear" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="FamilyMapServerStudent" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="test.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="test.EventDAOTest" />
+      <option name="METHOD_NAME" value="testClear" />
+      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -102,36 +126,20 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ServerTest.testFileHandler" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="FamilyMapServerStudent" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="passoff.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="passoff" />
-      <option name="MAIN_CLASS_NAME" value="passoff.ServerTest" />
-      <option name="METHOD_NAME" value="testFileHandler(org.junit.jupiter.api.TestInfo)" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <list>
-      <item itemvalue="Application.HelloWorld" />
       <item itemvalue="Application.Server" />
       <item itemvalue="JUnit.ServerTest" />
-      <item itemvalue="JUnit.ServerTest.testFileHandler" />
       <item itemvalue="JUnit.ServerTest.testClear" />
+      <item itemvalue="JUnit.EventDAOTest" />
+      <item itemvalue="JUnit.EventDAOTest.testClear" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.Server" />
+        <item itemvalue="JUnit.EventDAOTest.testClear" />
+        <item itemvalue="JUnit.EventDAOTest" />
         <item itemvalue="JUnit.ServerTest" />
+        <item itemvalue="Application.Server" />
         <item itemvalue="JUnit.ServerTest.testClear" />
-        <item itemvalue="JUnit.ServerTest.testFileHandler" />
-        <item itemvalue="Application.HelloWorld" />
       </list>
     </recent_temporary>
   </component>
@@ -177,55 +185,60 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="1220" y="281" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1582694939411" />
-    <state width="1493" height="206" key="GridCell.Tab.0.bottom" timestamp="1582827483369">
-      <screen x="0" y="0" width="1536" height="824" />
+    <state width="1877" height="281" key="GridCell.Tab.0.bottom" timestamp="1582875485178">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1493" height="206" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1582827483369" />
-    <state width="1877" height="242" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1582778212271" />
-    <state width="1493" height="206" key="GridCell.Tab.0.center" timestamp="1582827483369">
-      <screen x="0" y="0" width="1536" height="824" />
+    <state width="1877" height="281" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1582875485178" />
+    <state width="1877" height="281" key="GridCell.Tab.0.center" timestamp="1582875485178">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1493" height="206" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1582827483369" />
-    <state width="1877" height="242" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1582778212271" />
-    <state width="1493" height="206" key="GridCell.Tab.0.left" timestamp="1582827483369">
-      <screen x="0" y="0" width="1536" height="824" />
+    <state width="1877" height="281" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1582875485178" />
+    <state width="1877" height="281" key="GridCell.Tab.0.left" timestamp="1582875485178">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1493" height="206" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1582827483369" />
-    <state width="1877" height="242" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1582778212271" />
-    <state width="1493" height="206" key="GridCell.Tab.0.right" timestamp="1582827483369">
-      <screen x="0" y="0" width="1536" height="824" />
+    <state width="1877" height="281" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1582875485178" />
+    <state width="1877" height="281" key="GridCell.Tab.0.right" timestamp="1582875485178">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1493" height="206" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1582827483369" />
-    <state width="1877" height="242" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1582778212271" />
-    <state width="1493" height="176" key="GridCell.Tab.1.bottom" timestamp="1582827483361">
-      <screen x="0" y="0" width="1536" height="824" />
+    <state width="1877" height="281" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1582875485178" />
+    <state width="1877" height="242" key="GridCell.Tab.1.bottom" timestamp="1582875485174">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1493" height="176" key="GridCell.Tab.1.bottom/0.0.1536.824@0.0.1536.824" timestamp="1582827483361" />
-    <state width="1877" height="242" key="GridCell.Tab.1.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1582778212271" />
-    <state width="1493" height="176" key="GridCell.Tab.1.center" timestamp="1582827483361">
-      <screen x="0" y="0" width="1536" height="824" />
+    <state width="1877" height="242" key="GridCell.Tab.1.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1582875485174" />
+    <state width="1877" height="242" key="GridCell.Tab.1.center" timestamp="1582875485174">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1493" height="176" key="GridCell.Tab.1.center/0.0.1536.824@0.0.1536.824" timestamp="1582827483361" />
-    <state width="1877" height="242" key="GridCell.Tab.1.center/0.0.1920.1040@0.0.1920.1040" timestamp="1582778212271" />
-    <state width="1493" height="176" key="GridCell.Tab.1.left" timestamp="1582827483361">
-      <screen x="0" y="0" width="1536" height="824" />
+    <state width="1877" height="242" key="GridCell.Tab.1.center/0.0.1920.1040@0.0.1920.1040" timestamp="1582875485174" />
+    <state width="1877" height="242" key="GridCell.Tab.1.left" timestamp="1582875485174">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1493" height="176" key="GridCell.Tab.1.left/0.0.1536.824@0.0.1536.824" timestamp="1582827483361" />
-    <state width="1877" height="242" key="GridCell.Tab.1.left/0.0.1920.1040@0.0.1920.1040" timestamp="1582778212271" />
-    <state width="1493" height="176" key="GridCell.Tab.1.right" timestamp="1582827483361">
-      <screen x="0" y="0" width="1536" height="824" />
+    <state width="1877" height="242" key="GridCell.Tab.1.left/0.0.1920.1040@0.0.1920.1040" timestamp="1582875485174" />
+    <state width="1877" height="242" key="GridCell.Tab.1.right" timestamp="1582875485174">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1493" height="176" key="GridCell.Tab.1.right/0.0.1536.824@0.0.1536.824" timestamp="1582827483361" />
-    <state width="1877" height="242" key="GridCell.Tab.1.right/0.0.1920.1040@0.0.1920.1040" timestamp="1582778212271" />
-    <state x="279" y="58" key="SettingsEditor" timestamp="1582826300800">
-      <screen x="0" y="0" width="1536" height="824" />
+    <state width="1877" height="242" key="GridCell.Tab.1.right/0.0.1920.1040@0.0.1920.1040" timestamp="1582875485174" />
+    <state x="349" y="73" key="SettingsEditor" timestamp="1582870047047">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="279" y="58" key="SettingsEditor/0.0.1536.824@0.0.1536.824" timestamp="1582826300800" />
+    <state x="349" y="73" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1582870047047" />
     <state x="918" y="275" key="com.intellij.ide.util.TipDialog" timestamp="1582853120083">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="918" y="275" key="com.intellij.ide.util.TipDialog/0.0.1536.824@0.0.1536.824" timestamp="1582853120083" />
     <state x="1147" y="347" key="com.intellij.ide.util.TipDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1582767268035" />
+    <state x="616" y="240" key="run.anything.popup" timestamp="1582868993830">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="616" y="240" key="run.anything.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1582868993830" />
     <state x="1163" y="441" key="vcs.readOnlyHandler.ReadOnlyStatusDialog" timestamp="1582775634932">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -236,8 +249,8 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/test/java/passoff/ServerTest.java</url>
-          <line>632</line>
-          <option name="timeStamp" value="1" />
+          <line>607</line>
+          <option name="timeStamp" value="2" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

@@ -89,6 +89,10 @@ public class UserDao {
         }
     }
 
+    public void login() {
+
+    }
+
     /**
      * This function will generate a unique ID for the person and return
      * it to be sent to the database

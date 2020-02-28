@@ -10,8 +10,15 @@ public class LoginService {
      * @param r the LoginRequest object
      * @return the LoginResult object with data.
      */
-    LoginResult login(LoginRequest r) {
-        LoginResult newLogin = new LoginResult();
+    public LoginResult login(LoginRequest r) {
+        LoginResult newLogin;
+        String userName = r.getUserName();
+        String password = r.getPassword();
+        //somehow need to check that both match up in the same entry
+        String sql = "SELECT * FROM users WHERE username = ? AND password = ?";
+
+        newLogin = new LoginResult(true, "Error");
+        newLogin = new LoginResult("ABC", userName, "123", true);
         return newLogin;
     }
 }

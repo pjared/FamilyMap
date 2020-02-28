@@ -31,6 +31,7 @@ public class Server {
         server.createContext("/", new FileHandler());
         server.createContext("/user/register", new RegisterRequestHandler());
         server.createContext("/clear", new ClearHandler());
-        server.createContext("/load", new FileHandler());
+        server.createContext("/load", new LoadHandler());
+        server.createContext("/user/login", new LoginHandler());
     }
 }

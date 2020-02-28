@@ -1,16 +1,16 @@
 package Handlers;
 
-import Requests.RegisterRequest;
-import Service.RegisterService;
+import Requests.LoginRequest;
+import Service.LoginService;
 import com.sun.net.httpserver.Headers;
 import com.sun.net.httpserver.HttpExchange;
 
 import java.io.*;
 import java.net.HttpURLConnection;
 
-public class RegisterRequestHandler extends FileHandler {
+public class LoginHandler extends FileHandler {
     private Deserialize decereal = new Deserialize();
-    private RegisterService rService = new RegisterService();
+    private LoginService lService = new LoginService();
 
     @Override
     public void handle(HttpExchange httpExchange) throws IOException {
@@ -22,8 +22,8 @@ public class RegisterRequestHandler extends FileHandler {
                 InputStream reqBody = httpExchange.getRequestBody();
                 String reqData = readString(reqBody);
                 System.out.println(reqData);
-                RegisterRequest rObject = decereal.deserialize(reqData, RegisterRequest.class);
-                String response = decereal.serialize(rService.register(rObject));
+                LoginRequest lObject = decereal.deserialize(reqData, LoginRequest.class);
+                String response = decereal.serialize(lService.login(lObject));
 
                 httpExchange.sendResponseHeaders(HttpURLConnection.HTTP_OK, 0);
                 OutputStream respBody = httpExchange.getResponseBody();

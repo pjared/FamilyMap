@@ -1,3 +1,7 @@
 Connection refused to server test
 
-ClearService class, ask about exception throwing
+DAO test and wierd error
+
+Load Handler and Load service not interacting with the database well
+
+Where to do the SQL statement in loginService(call to the DAO?)

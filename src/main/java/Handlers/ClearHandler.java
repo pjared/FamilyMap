@@ -37,7 +37,7 @@ public class ClearHandler extends FileHandler {
             } else {
                 // We expected a POST but got something else, so we return a "bad request"
                 // status code to the client.
-                exchange.sendResponseHeaders(HttpURLConnection.HTTP_BAD_REQUEST, 0);
+                exchange.sendResponseHeaders(HttpURLConnection.HTTP_BAD_REQUEST, 400);
             }
         } catch (IOException e) {
             exchange.sendResponseHeaders(HttpURLConnection.HTTP_INTERNAL_ERROR, 0);

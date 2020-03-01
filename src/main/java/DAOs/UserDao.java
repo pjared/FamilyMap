@@ -82,7 +82,7 @@ public class UserDao {
     public void clear() throws DataAccessException {
         String sql = "DELETE FROM users";
         try (PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.executeUpdate(sql);
+            stmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
             throw new DataAccessException("Error encountered while trying to clear table");

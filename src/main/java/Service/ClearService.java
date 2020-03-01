@@ -27,7 +27,7 @@ public class ClearService {
         }
         //Wasn't there something said about how the data access exception should be thrown earlier?
 
-        cleared.setMessage("Database cleared");
+        cleared.setMessage("Clear Succeeded");
         cleared.setSuccess(true);
         return cleared;
     }

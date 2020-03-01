@@ -4,7 +4,7 @@ import java.util.Objects;
 import java.util.Set;
 
 public class Person {
-    private String userName;
+    private String associatedUsername;
     private String personID;
     private String firstName;
     private String lastName;
@@ -19,7 +19,7 @@ public class Person {
     }
 
     public Person(String userName, String personID, String firstName, String lastName, String gender) {
-        this.userName = userName;
+        this.associatedUsername = userName;
         this.personID = personID;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -27,7 +27,7 @@ public class Person {
     }
 
     public Person(String userName, String personID, String firstName, String lastName, String gender, String fatherID, String motherID, String spouseID) {
-        this.userName = userName;
+        this.associatedUsername = userName;
         this.personID = personID;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -41,8 +41,8 @@ public class Person {
      * Returns the person's user name
      * @return the person's user name
      */
-    public String getUserName() {
-        return userName;
+    public String getAssociatedUsername() {
+        return associatedUsername;
     }
 
     /**
@@ -103,10 +103,10 @@ public class Person {
 
     /**
      * Sets the inputted user name of the person
-     * @param userName the person's user name
+     * @param associatedUsername the person's user name
      */
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setAssociatedUsername(String associatedUsername) {
+        this.associatedUsername = associatedUsername;
     }
 
     /**
@@ -172,7 +172,7 @@ public class Person {
     @Override
     public String toString() {
         return "Person{" +
-                "userName='" + userName + '\'' +
+                "userName='" + associatedUsername + '\'' +
                 ", personID='" + personID + '\'' +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
@@ -188,7 +188,7 @@ public class Person {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Person person = (Person) o;
-        return userName.equals(person.userName) &&
+        return associatedUsername.equals(person.associatedUsername) &&
                 personID.equals(person.personID) &&
                 firstName.equals(person.firstName) &&
                 lastName.equals(person.lastName) &&
@@ -201,6 +201,6 @@ public class Person {
 
     @Override
     public int hashCode() {
-        return Objects.hash(userName, personID, firstName, lastName, gender, fatherID, motherID, spouseID, personEvents);
+        return Objects.hash(associatedUsername, personID, firstName, lastName, gender, fatherID, motherID, spouseID, personEvents);
     }
 }

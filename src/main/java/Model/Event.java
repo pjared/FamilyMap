@@ -2,7 +2,7 @@ package Model;
 
 public class Event {
     private String eventID;
-    private String associatedUser;
+    private String associatedUsername;
     private String personID;
     private float latitude;
     private float longitude;
@@ -15,7 +15,7 @@ public class Event {
 
     public Event(String eventID, String associatedUser, String personID, float latitude, float longitude, String country, String city, String eventType, int year) {
         this.eventID = eventID;
-        this.associatedUser = associatedUser;
+        this.associatedUsername = associatedUser;
         this.personID = personID;
         this.latitude = latitude;
         this.longitude = longitude;
@@ -36,8 +36,8 @@ public class Event {
      * Returns the associated users with an event
      * @return the associated users
      */
-    public String getAssociatedUser() {
-        return associatedUser;
+    public String getAssociatedUsername() {
+        return associatedUsername;
     }
 
     /**
@@ -106,10 +106,10 @@ public class Event {
 
     /**
      * Sets the associated users with an event
-     * @param associatedUser the associated users
+     * @param associatedUsername the associated users
      */
-    public void setAssociatedUser(String associatedUser) {
-        this.associatedUser = associatedUser;
+    public void setAssociatedUsername(String associatedUsername) {
+        this.associatedUsername = associatedUsername;
     }
 
     /**
@@ -172,7 +172,7 @@ public class Event {
     public String toString() {
         return "Event{" +
                 ", eventID='" + eventID + '\'' +
-                ", associatedUsers='" + associatedUser + '\'' +
+                ", associatedUsers='" + associatedUsername + '\'' +
                 ", personID='" + personID + '\'' +
                 ", latitude='" + latitude + '\'' +
                 ", longitude='" + longitude + '\'' +
@@ -192,7 +192,7 @@ public class Event {
                 Float.compare(event.longitude, longitude) == 0 &&
                 year == event.year &&
                 eventID.equals(event.eventID) &&
-                associatedUser.equals(event.associatedUser) &&
+                associatedUsername.equals(event.associatedUsername) &&
                 personID.equals(event.personID) &&
                 country.equals(event.country) &&
                 city.equals(event.city) &&

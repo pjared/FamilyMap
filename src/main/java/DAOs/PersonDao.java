@@ -31,7 +31,7 @@ public class PersonDao {
             //Using the statements built-in set(type) functions we can pick the question mark we want
             //to fill in and give it a proper value. The first argument corresponds to the first
             //question mark found in our sql String
-            stmt.setString(1, person.getUserName());
+            stmt.setString(1, person.getAssociatedUsername());
             stmt.setString(2, person.getPersonID());
             stmt.setString(3, person.getFirstName());
             stmt.setString(4, person.getLastName());
@@ -87,7 +87,7 @@ public class PersonDao {
     public void clear() throws DataAccessException {
         String sql = "DELETE FROM person";
         try (PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.executeUpdate(sql);
+            stmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
             throw new DataAccessException("Error encountered while trying to clear table");

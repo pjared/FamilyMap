@@ -27,6 +27,7 @@ public class LoadService {
         try {
             conn.openConnection();
             conn.clearTables(); //clear the tables
+            conn.closeConnection(true);
 
             ArrayList<User> users= r.getUsers();
             ArrayList<Person> persons= r.getPersons();
@@ -55,9 +56,8 @@ public class LoadService {
                 e.printStackTrace();
             }
 
-            if(failed = false) {
+            if(failed == false) {
                 db.closeConnection(true);
-                conn.closeConnection(true);
                 newLoad.setMessage("Data loaded into the database");
                 newLoad.setSuccess(true);
             }

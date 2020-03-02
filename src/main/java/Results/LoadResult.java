@@ -4,8 +4,7 @@ public class LoadResult {
     String message;
     boolean success;
 
-    public LoadResult() {
-    }
+    public LoadResult() {}
 
     public LoadResult(String message, boolean success) {
         this.message = message;

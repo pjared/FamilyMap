@@ -19,6 +19,17 @@ public class PersonHandler extends FileHandler {
                 String reqData = readString(reqBody);
                 System.out.println(reqData);
 
+                //might just do a checkToken class
+                if (reqHeaders.containsKey("Authorization")) {
+                    String authToken = reqHeaders.getFirst("Authorization");
+                    if (authToken.equals("afj232hj2332")) {
+                    }else {
+                        httpExchange.sendResponseHeaders(HttpURLConnection.HTTP_UNAUTHORIZED, 0);
+                    }
+                } else {
+                    httpExchange.sendResponseHeaders(HttpURLConnection.HTTP_UNAUTHORIZED, 0);
+                }
+
                 String response;
                 if(1 == 1) { //TODO: Add a reader to check if there is a given personID
                     response = Deserialize.serialize(pService.getPerson("123", "123"));

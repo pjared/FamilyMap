@@ -9,9 +9,9 @@ public class Person {
     private String firstName;
     private String lastName;
     private String gender;
-    private String fatherID;
-    private String motherID;
-    private String spouseID;
+    private String fatherID = null;
+    private String motherID = null;
+    private String spouseID = null;
 
     Set<Model.Event> personEvents;
 

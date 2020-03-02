@@ -2,12 +2,14 @@ package Service;
 
 import DAOs.Connect;
 import DAOs.DataAccessException;
+import Model.Person;
 import Results.PersonResult;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class PersonService {
     private Connect db = new Connect();
@@ -21,8 +23,64 @@ public class PersonService {
     public PersonResult getFamily(String authToken) {
         PersonResult newPerson = new PersonResult();
         //check the authToken and get the user from the authToken
-        newPerson.setMessage("Internal server error");
-        newPerson.setSuccess(false);
+
+        Connection connect = null;
+        try {
+            connect = db.openConnection();
+        } catch (DataAccessException e) {
+            newPerson = new PersonResult(false, "Internal server error");
+            e.printStackTrace();
+        }
+
+        String sql = "SELECT * FROM authToken WHERE authToken = ?";
+        //get the user associated with the authToken
+        ResultSet rs;
+        String userName = null;
+        try (PreparedStatement stmt = connect.prepareStatement(sql)) {
+            stmt.setString(1, authToken);
+            rs = stmt.executeQuery();
+            if (rs.next()) {
+                userName = rs.getString("username");
+            }
+        } catch (SQLException e) {
+            newPerson = new PersonResult(false, "Internal Server error");
+            e.printStackTrace();
+        }
+
+        ArrayList<Person> allPersons = new ArrayList();
+        Person person;
+        if(userName != null) {
+            sql = "SELECT * FROM event WHERE associatedUsername = ?";
+            //Get the events associated with the user - push to array lis
+            try (PreparedStatement stmt = connect.prepareStatement(sql)) {
+                stmt.setString(1, userName);
+                rs = stmt.executeQuery();
+                while(rs.next()) {
+                    person = new Person(rs.getString("associatedUsername"),
+                            rs.getString("eventID"), rs.getString("firstName"),
+                            rs.getString("lastName"), rs.getString("gender"),
+                            rs.getString("fatherID"), rs.getString("motherID"),
+                            rs.getString("spouseID"));
+                    allPersons.add(person);
+                }
+            } catch (SQLException e) {
+                newPerson = new PersonResult(false, "Internal Server error");
+                e.printStackTrace();
+            }
+        } else {
+            newPerson = new PersonResult(false, "Invalid auth token");
+        }
+
+        try {
+            db.closeConnection(true);
+        } catch (DataAccessException e) {
+            newPerson = new PersonResult(false, "Internal server error");
+            e.printStackTrace();
+        }
+
+        if (allPersons.size() > 0) {
+            newPerson = new PersonResult(allPersons, true);
+        }
         //get all family members and put into an array of Person
         return newPerson;
     }
@@ -35,7 +93,6 @@ public class PersonService {
     public PersonResult getPerson(String authToken, String personID) {
         PersonResult newPerson = new PersonResult();
 
-        // make sure personID and authToken match, then return that person object
         Connection connect = null;
         try {
             connect = db.openConnection();

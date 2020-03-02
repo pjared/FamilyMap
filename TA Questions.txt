@@ -1,7 +1,9 @@
 Connection refused to server test
 
-Not sure on how to correctly do the load result object correctly
+Not sure on how to correctly do the load result object correctly - the list of data : Just a counter
 
 How do I get the stuff in the URL that I need to do the calls on the functions
 
-How do I know if there is an invalid authToken
+How do I get the authToken - How do I know if there is an invalid authToken : List games handler
+
+Do I need if statements for father/mother/spouse in person

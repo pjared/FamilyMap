@@ -1,16 +1,29 @@
 package Service;
 
+import DAOs.Connect;
+import DAOs.DataAccessException;
 import Results.PersonResult;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 public class PersonService {
+    private Connect db = new Connect();
+
     /**
      * The getFamily method will return all all family members,
      * given an auth token as a parameter from the user.
      * @param authToken the authToken from the user
      * @return The personResult object
      */
-    PersonResult getFamily(String authToken) {
+    public PersonResult getFamily(String authToken) {
         PersonResult newPerson = new PersonResult();
+        //check the authToken and get the user from the authToken
+        newPerson.setMessage("Internal server error");
+        newPerson.setSuccess(false);
+        //get all family members and put into an array of Person
         return newPerson;
     }
 
@@ -19,8 +32,82 @@ public class PersonService {
      * a personID in a Person Result object.
      * @return the person result object
      */
-    PersonResult getPerson(String authToken, String personID) {
+    public PersonResult getPerson(String authToken, String personID) {
         PersonResult newPerson = new PersonResult();
+
+        // make sure personID and authToken match, then return that person object
+        Connection connect = null;
+        try {
+            connect = db.openConnection();
+        } catch (DataAccessException e) {
+            newPerson = new PersonResult(false, "Internal server error");
+            e.printStackTrace();
+        }
+
+        //get the username from the person ID, make sure username is with authtoken
+        String sql = "SELECT * FROM person WHERE personID = ?";
+        ResultSet rs = null;
+        String userName = null;
+        try (PreparedStatement stmt = connect.prepareStatement(sql)) {
+            stmt.setString(1, personID);
+            rs = stmt.executeQuery();
+            if (rs.next()) {
+                userName = rs.getString("associatedUsername");
+            } else {
+                newPerson = new PersonResult(false, "Invalid personID parameter");
+            }
+        } catch (SQLException e) {
+            newPerson = new PersonResult(false, "Internal Server error");
+            e.printStackTrace();
+        }
+
+        if(!(userName == null)) {
+            //Check to find if the username and authtoken match
+            boolean foundUser = false;
+            sql = "SELECT * FROM authToken WHERE username = ? AND authToken = ?";
+            try (PreparedStatement stmt = connect.prepareStatement(sql)) {
+                stmt.setString(1, userName);
+                stmt.setString(1, authToken);
+                rs = stmt.executeQuery();
+                if (rs.next()) {
+                    foundUser = true;
+                }
+            } catch (SQLException e) {
+                newPerson = new PersonResult(false, "Internal Server error");
+                e.printStackTrace();
+            }
+
+            //Did find the user and the authtoken, so continue
+            if(foundUser) {
+                sql = "SELECT * FROM person WHERE personID = ?";
+                try (PreparedStatement stmt = connect.prepareStatement(sql)) {
+                    stmt.setString(1, personID);
+                    rs = stmt.executeQuery();
+                    if (rs.next()) {
+                        newPerson = new PersonResult(rs.getString("associatedUsername"),
+                                rs.getString("personID"), rs.getString("firstName"),
+                                rs.getString("lastName"), rs.getString("gender"),
+                                rs.getString("fatherID"), rs.getString("motherID"),
+                                rs.getString("spouseID"), true);
+                    } else {
+                        newPerson = new PersonResult(false, "Invalid personID parameter");
+                    }
+                } catch (SQLException e) {
+                    newPerson = new PersonResult(false, "Internal Server error");
+                    e.printStackTrace();
+                }
+            } else {
+                newPerson = new PersonResult(false, "Requested person does not belong to this user");
+            }
+        }
+
+        try {
+            db.closeConnection(true);
+        } catch (DataAccessException e) {
+            newPerson = new PersonResult(false, "Internal server error");
+            e.printStackTrace();
+        }
+
         return newPerson;
     }
 }

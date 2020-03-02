@@ -5,37 +5,20 @@ import client.Proxy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.stream.JsonReader;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.util.Scanner;
-import java.util.logging.Logger;
 import logs.InitLogs;
 import models.Event;
 import models.Person;
 import models.User;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestInfo;
+import org.junit.jupiter.api.*;
 import request.FillRequest;
 import request.LoadRequest;
 import request.LoginRequest;
 import request.RegisterRequest;
-import result.ClearResult;
-import result.EventResult;
-import result.EventsResult;
-import result.FillResult;
-import result.LoadResult;
-import result.LoginResult;
-import result.PersonResult;
-import result.PersonsResult;
-import result.RegisterResult;
+import result.*;
+
+import java.io.*;
+import java.util.Scanner;
+import java.util.logging.Logger;
 
 public class ServerTest {
     private static Logger logger;
@@ -537,7 +520,7 @@ public class ServerTest {
             Assertions.assertFalse(loadResult.b().toLowerCase().contains("error"), "message contained an error");
             String[] arrayOfString = loadResult.b().split("(?<=\\D)(?=\\d)|(?<=\\d)(?=\\D)");
             Assertions.assertEquals("Successfully added ", arrayOfString[0], "First part of result message does not match API");
-            Assertions.assertEquals(i, Integer.parseInt(arrayOfString[1]), "Incorrect number of users added");
+             Assertions.assertEquals(i, Integer.parseInt(arrayOfString[1]), "Incorrect number of users added");
             Assertions.assertEquals(" users, ", arrayOfString[2], "Second part of result message does not match API");
             Assertions.assertEquals(j, Integer.parseInt(arrayOfString[3]), "Incorrect number of persons added");
             Assertions.assertEquals(" persons, and ", arrayOfString[4], "Third part of result message does not match API");
@@ -581,7 +564,7 @@ public class ServerTest {
         load();
         Scanner scanner = new Scanner(System.in);
         System.out.println("Shut down the server, wait a few seconds, then restart the server. Then press ENTER.");
-        scanner.nextLine();
+        //scanner.nextLine();
         try {
             JsonReader jsonReader = new JsonReader(new FileReader("passoffFiles/LoadData.json"));
             LoadRequest loadRequest = (LoadRequest)GSON.fromJson(jsonReader, LoadRequest.class);

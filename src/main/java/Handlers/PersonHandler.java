@@ -1,29 +1,30 @@
 package Handlers;
 
-import Requests.LoginRequest;
-import Service.LoginService;
+import Service.PersonService;
 import com.sun.net.httpserver.Headers;
 import com.sun.net.httpserver.HttpExchange;
 
 import java.io.*;
 import java.net.HttpURLConnection;
 
-public class LoginHandler extends FileHandler {
-    private Deserialize decereal = new Deserialize();
-    private LoginService lService = new LoginService();
+public class PersonHandler extends FileHandler {
+    private PersonService pService = new PersonService();
 
     @Override
     public void handle(HttpExchange httpExchange) throws IOException {
         try {
-            if (httpExchange.getRequestMethod().toUpperCase().equals("POST")) {
-                // Get the HTTP request headers
+            if (httpExchange.getRequestMethod().toUpperCase().equals("GET")) {
                 Headers reqHeaders = httpExchange.getRequestHeaders();
-
                 InputStream reqBody = httpExchange.getRequestBody();
                 String reqData = readString(reqBody);
                 System.out.println(reqData);
-                LoginRequest lObject = decereal.deserialize(reqData, LoginRequest.class);
-                String response = decereal.serialize(lService.login(lObject));
+
+                String response;
+                if(1 == 1) { //TODO: Add a reader to check if there is a given personID
+                    response = Deserialize.serialize(pService.getPerson("123", "123"));
+                } else {
+                    response = Deserialize.serialize(pService.getFamily("123"));
+                }
 
                 httpExchange.sendResponseHeaders(HttpURLConnection.HTTP_OK, 0);
                 OutputStream respBody = httpExchange.getResponseBody();
@@ -32,8 +33,6 @@ public class LoginHandler extends FileHandler {
             } else {
                 httpExchange.sendResponseHeaders(HttpURLConnection.HTTP_BAD_REQUEST, 0);
             }
-
-            httpExchange.getResponseBody().close();
         } catch (IOException e) {
             httpExchange.sendResponseHeaders(HttpURLConnection.HTTP_INTERNAL_ERROR, 0);
             httpExchange.getResponseBody().close();

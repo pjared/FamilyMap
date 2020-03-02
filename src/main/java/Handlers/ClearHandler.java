@@ -30,13 +30,9 @@ public class ClearHandler extends FileHandler {
                     e.printStackTrace();
                 }
 
-                //What I need to do here is convert the clear response object to json through gson
-                //need to make the call to the clear service here
                 writeString(respData, respBody);
                 respBody.close();
             } else {
-                // We expected a POST but got something else, so we return a "bad request"
-                // status code to the client.
                 exchange.sendResponseHeaders(HttpURLConnection.HTTP_BAD_REQUEST, 400);
             }
         } catch (IOException e) {

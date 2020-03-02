@@ -11,7 +11,7 @@ public class PersonResult {
     String personID;
     String firstName;
     String lastName;
-    char gender;
+    String gender;
     String fatherID;
     String motherID;
     String spouseID;
@@ -22,7 +22,7 @@ public class PersonResult {
     public PersonResult() {
     }
 
-    public PersonResult(String associateUsername, String personID, String firstName, String lastName, char gender, String fatherID, String motherID, String spouseID, boolean success) {
+    public PersonResult(String associateUsername, String personID, String firstName, String lastName, String gender, String fatherID, String motherID, String spouseID, boolean success) {
         this.associateUsername = associateUsername;
         this.personID = personID;
         this.firstName = firstName;
@@ -76,11 +76,11 @@ public class PersonResult {
         this.lastName = lastName;
     }
 
-    public char getGender() {
+    public String getGender() {
         return gender;
     }
 
-    public void setGender(char gender) {
+    public void setGender(String gender) {
         this.gender = gender;
     }
 

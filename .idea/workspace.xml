@@ -49,7 +49,7 @@
       <recent name="C:\Users\MysticWolf\IdeaProjects\FamilyMapServerStudent-master\src" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.ServerTest.testClear">
+  <component name="RunManager" selected="JUnit.ServerTest.testValidLoad">
     <configuration name="Server" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Handlers.Server" />
       <module name="FamilyMapServerStudent" />
@@ -60,36 +60,6 @@
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="EventDAOTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="FamilyMapServerStudent" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="test.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="" />
-      <option name="MAIN_CLASS_NAME" value="test.EventDAOTest" />
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="PersonDAOTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="FamilyMapServerStudent" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="test.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="" />
-      <option name="MAIN_CLASS_NAME" value="test.PersonDAOTest" />
-      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -109,7 +79,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ServerTest.testClear" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="ServerTest.testInvalidUserLogin" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="FamilyMapServerStudent" />
       <extension name="coverage">
         <pattern>
@@ -119,7 +89,39 @@
       </extension>
       <option name="PACKAGE_NAME" value="passoff" />
       <option name="MAIN_CLASS_NAME" value="passoff.ServerTest" />
-      <option name="METHOD_NAME" value="testClear(org.junit.jupiter.api.TestInfo)" />
+      <option name="METHOD_NAME" value="testInvalidUserLogin(org.junit.jupiter.api.TestInfo)" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ServerTest.testReRegister" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="FamilyMapServerStudent" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="passoff.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="passoff" />
+      <option name="MAIN_CLASS_NAME" value="passoff.ServerTest" />
+      <option name="METHOD_NAME" value="testReRegister(org.junit.jupiter.api.TestInfo)" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ServerTest.testValidLoad" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="FamilyMapServerStudent" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="passoff.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="passoff" />
+      <option name="MAIN_CLASS_NAME" value="passoff.ServerTest" />
+      <option name="METHOD_NAME" value="testValidLoad(org.junit.jupiter.api.TestInfo)" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -127,18 +129,18 @@
     </configuration>
     <list>
       <item itemvalue="Application.Server" />
-      <item itemvalue="JUnit.EventDAOTest" />
-      <item itemvalue="JUnit.PersonDAOTest" />
       <item itemvalue="JUnit.ServerTest" />
-      <item itemvalue="JUnit.ServerTest.testClear" />
+      <item itemvalue="JUnit.ServerTest.testReRegister" />
+      <item itemvalue="JUnit.ServerTest.testInvalidUserLogin" />
+      <item itemvalue="JUnit.ServerTest.testValidLoad" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.ServerTest.testClear" />
+        <item itemvalue="JUnit.ServerTest.testValidLoad" />
         <item itemvalue="Application.Server" />
         <item itemvalue="JUnit.ServerTest" />
-        <item itemvalue="JUnit.EventDAOTest" />
-        <item itemvalue="JUnit.PersonDAOTest" />
+        <item itemvalue="JUnit.ServerTest.testInvalidUserLogin" />
+        <item itemvalue="JUnit.ServerTest.testReRegister" />
       </list>
     </recent_temporary>
   </component>
@@ -177,6 +179,10 @@
     </state>
     <state x="447" y="143" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1536.824@0.0.1536.824" timestamp="1582918132800" />
     <state x="828" y="181" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1582767366026" />
+    <state x="92" y="92" width="1736" height="856" key="#com.intellij.execution.junit2.states.ComparisonFailureState$DiffDialog" timestamp="1583118612401">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="92" y="92" width="1736" height="856" key="#com.intellij.execution.junit2.states.ComparisonFailureState$DiffDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1583118612401" />
     <state x="1213" y="333" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1582695220369">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -189,60 +195,68 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="1220" y="281" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1582694939411" />
-    <state width="1493" height="206" key="GridCell.Tab.0.bottom" timestamp="1582921441521">
-      <screen x="0" y="0" width="1536" height="824" />
+    <state width="938" height="242" key="GridCell.Tab.0.bottom" timestamp="1583140305343">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1493" height="206" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1582921441521" />
-    <state width="1877" height="281" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1582875485178" />
-    <state width="1493" height="206" key="GridCell.Tab.0.center" timestamp="1582921441521">
-      <screen x="0" y="0" width="1536" height="824" />
+    <state width="938" height="242" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1583140305343" />
+    <state width="938" height="242" key="GridCell.Tab.0.center" timestamp="1583140305343">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1493" height="206" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1582921441521" />
-    <state width="1877" height="281" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1582875485178" />
-    <state width="1493" height="206" key="GridCell.Tab.0.left" timestamp="1582921441521">
-      <screen x="0" y="0" width="1536" height="824" />
+    <state width="938" height="242" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1583140305343" />
+    <state width="938" height="242" key="GridCell.Tab.0.left" timestamp="1583140305343">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1493" height="206" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1582921441521" />
-    <state width="1877" height="281" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1582875485178" />
-    <state width="1493" height="206" key="GridCell.Tab.0.right" timestamp="1582921441521">
-      <screen x="0" y="0" width="1536" height="824" />
+    <state width="938" height="242" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1583140305343" />
+    <state width="938" height="242" key="GridCell.Tab.0.right" timestamp="1583140305343">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1493" height="206" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1582921441521" />
-    <state width="1877" height="281" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1582875485178" />
-    <state width="1493" height="176" key="GridCell.Tab.1.bottom" timestamp="1582921441521">
-      <screen x="0" y="0" width="1536" height="824" />
+    <state width="938" height="242" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1583140305343" />
+    <state width="938" height="242" key="GridCell.Tab.1.bottom" timestamp="1583140305344">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1493" height="176" key="GridCell.Tab.1.bottom/0.0.1536.824@0.0.1536.824" timestamp="1582921441521" />
-    <state width="1877" height="242" key="GridCell.Tab.1.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1582875485174" />
-    <state width="1493" height="176" key="GridCell.Tab.1.center" timestamp="1582921441521">
-      <screen x="0" y="0" width="1536" height="824" />
+    <state width="938" height="242" key="GridCell.Tab.1.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1583140305344" />
+    <state width="938" height="242" key="GridCell.Tab.1.center" timestamp="1583140305344">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1493" height="176" key="GridCell.Tab.1.center/0.0.1536.824@0.0.1536.824" timestamp="1582921441521" />
-    <state width="1877" height="242" key="GridCell.Tab.1.center/0.0.1920.1040@0.0.1920.1040" timestamp="1582875485174" />
-    <state width="1493" height="176" key="GridCell.Tab.1.left" timestamp="1582921441521">
-      <screen x="0" y="0" width="1536" height="824" />
+    <state width="938" height="242" key="GridCell.Tab.1.center/0.0.1920.1040@0.0.1920.1040" timestamp="1583140305344" />
+    <state width="938" height="242" key="GridCell.Tab.1.left" timestamp="1583140305344">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1493" height="176" key="GridCell.Tab.1.left/0.0.1536.824@0.0.1536.824" timestamp="1582921441521" />
-    <state width="1877" height="242" key="GridCell.Tab.1.left/0.0.1920.1040@0.0.1920.1040" timestamp="1582875485174" />
-    <state width="1493" height="176" key="GridCell.Tab.1.right" timestamp="1582921441521">
-      <screen x="0" y="0" width="1536" height="824" />
+    <state width="938" height="242" key="GridCell.Tab.1.left/0.0.1920.1040@0.0.1920.1040" timestamp="1583140305344" />
+    <state width="938" height="242" key="GridCell.Tab.1.right" timestamp="1583140305344">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1493" height="176" key="GridCell.Tab.1.right/0.0.1536.824@0.0.1536.824" timestamp="1582921441521" />
-    <state width="1877" height="242" key="GridCell.Tab.1.right/0.0.1920.1040@0.0.1920.1040" timestamp="1582875485174" />
+    <state width="938" height="242" key="GridCell.Tab.1.right/0.0.1920.1040@0.0.1920.1040" timestamp="1583140305344" />
     <state x="349" y="73" key="SettingsEditor" timestamp="1582870047047">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="279" y="58" key="SettingsEditor/0.0.1536.824@0.0.1536.824" timestamp="1582826300800" />
     <state x="349" y="73" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1582870047047" />
-    <state x="918" y="275" key="com.intellij.ide.util.TipDialog" timestamp="1582916533554">
-      <screen x="0" y="0" width="1536" height="824" />
+    <state width="968" height="528" key="XDebugger.FullValuePopup" timestamp="1583043449085">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="968" height="528" key="XDebugger.FullValuePopup/0.0.1920.1040@0.0.1920.1040" timestamp="1583043449085" />
+    <state x="1147" y="347" key="com.intellij.ide.util.TipDialog" timestamp="1583115621547">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="918" y="275" key="com.intellij.ide.util.TipDialog/0.0.1536.824@0.0.1536.824" timestamp="1582916533554" />
-    <state x="1147" y="347" key="com.intellij.ide.util.TipDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1582767268035" />
+    <state x="1147" y="347" key="com.intellij.ide.util.TipDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1583115621547" />
     <state x="616" y="240" key="run.anything.popup" timestamp="1582868993830">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="616" y="240" key="run.anything.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1582868993830" />
+    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1583137368456">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1583137368456" />
     <state x="1163" y="441" key="vcs.readOnlyHandler.ReadOnlyStatusDialog" timestamp="1582775634932">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -257,15 +271,18 @@
           <option name="timeStamp" value="7" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/Service/ClearService.java</url>
-          <line>13</line>
-          <option name="timeStamp" value="32" />
+          <url>file://$PROJECT_DIR$/src/test/java/passoff/ServerTest.java</url>
+          <line>522</line>
+          <option name="timeStamp" value="10" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/FamilyMapServerStudent$ServerTest.ic" NAME="ServerTest Coverage Results" MODIFIED="1582918749486" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>passoff.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/FamilyMapServerStudent$ServerTest_testInvalidUserLogin.ic" NAME="ServerTest.testInvalidUserLogin Coverage Results" MODIFIED="1583044753848" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
       <FILTER>passoff.*</FILTER>
     </SUITE>
   </component>

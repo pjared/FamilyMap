@@ -58,7 +58,7 @@ public class LoadService {
 
             if(failed == false) {
                 db.closeConnection(true);
-                newLoad.setMessage("Data loaded into the database");
+                newLoad.setMessage("Successfully added ");
                 newLoad.setSuccess(true);
             }
         } catch (DataAccessException e) {

@@ -1,5 +1,7 @@
 Connection refused to server test
 
-Load Handler and Load service not interacting with the database well
+Not sure on how to correctly do the load result object correctly
 
-Where to do the SQL statement in loginService(call to the DAO?)
+How do I get the stuff in the URL that I need to do the calls on the functions
+
+How do I know if there is an invalid authToken

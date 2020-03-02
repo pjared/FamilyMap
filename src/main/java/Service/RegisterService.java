@@ -30,14 +30,6 @@ public class RegisterService {
         User newUser = new User(r.getUserName(), r.getPassword(),r.getEmail(),
                                 r.getFirstName(),r.getLastName(),String.valueOf(r.getGender()));
 
-        try {
-            db.closeConnection(true);
-        } catch (DataAccessException e) {
-            success = false;
-            newRegister.setMessage("Internal Server Error");
-            newRegister.setSuccess(false);
-            e.printStackTrace();
-        }
 
         try {
             uDao.insert(newUser);
@@ -45,6 +37,15 @@ public class RegisterService {
             success = false;
             //TODO: Need to add another error message for non unique userName
             newRegister.setMessage("Invalid Data");
+            newRegister.setSuccess(false);
+            e.printStackTrace();
+        }
+
+        try {
+            db.closeConnection(true);
+        } catch (DataAccessException e) {
+            success = false;
+            newRegister.setMessage("Internal Server Error");
             newRegister.setSuccess(false);
             e.printStackTrace();
         }

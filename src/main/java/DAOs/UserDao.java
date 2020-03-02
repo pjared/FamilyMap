@@ -33,6 +33,9 @@ public class UserDao {
             stmt.setString(4, user.getFirstName());
             stmt.setString(5, user.getLastName());
             stmt.setString(6, user.getGender());
+            if(user.getPersonID() == null) {
+                user.setPersonID(generatePersonID());
+            }
             stmt.setString(7, user.getPersonID());
 
             stmt.executeUpdate();
@@ -99,7 +102,7 @@ public class UserDao {
      * @return the unique ID
      */
     public String generatePersonID() {
-        return "";
+        return "123";
     }
 
 }

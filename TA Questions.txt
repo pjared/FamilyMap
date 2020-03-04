@@ -1,1 +1,6 @@
 Breakpoint @ 31 in loginHandler - insufficient bytes written to stream
+Same happening in register Handler - change https to 0
+
+Failing clear test because I think i'm checking for authToken in the wrong
+
+DAO tests? -

@@ -27,6 +27,7 @@ public class PersonHandler extends FileHandler {
                 String uri = httpExchange.getRequestURI().toString();
                 if (reqHeaders.containsKey("Authorization")) {
                     String authToken = reqHeaders.getFirst("Authorization");
+                    /* Not going to check the auth token here - need to rewrite all lower classes
                     if (foundToken(authToken)) {
                         String response;
                         String personID = getPersonID(uri);
@@ -40,8 +41,8 @@ public class PersonHandler extends FileHandler {
                         writeString(response, respBody);
                         respBody.close();
                     }else {
-                        httpExchange.sendResponseHeaders(HttpURLConnection.HTTP_UNAUTHORIZED, 0);
-                    }
+                        httpExchange.sendResponseHeaders(HttpURLConnection.HTTP_UNAUTHORIZED, 200);
+                    } */
                 } else {
                     httpExchange.sendResponseHeaders(HttpURLConnection.HTTP_UNAUTHORIZED, 0);
                 }
@@ -77,7 +78,6 @@ public class PersonHandler extends FileHandler {
         String sql = "SELECT * FROM authToken WHERE authToken = ?";
         //get the user associated with the authToken
         ResultSet rs;
-        String userName = null;
         try (PreparedStatement stmt = connect.prepareStatement(sql)) {
             stmt.setString(1, authToken);
             rs = stmt.executeQuery();

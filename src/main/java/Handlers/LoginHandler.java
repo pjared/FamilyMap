@@ -18,20 +18,24 @@ public class LoginHandler extends FileHandler {
                 InputStream reqBody = httpExchange.getRequestBody();
                 String reqData = readString(reqBody);
                 System.out.println(reqData);
+
                 LoginRequest lObject = decereal.deserialize(reqData, LoginRequest.class);
                 String response = decereal.serialize(lService.login(lObject));
 
+
                 if(response.contains("Request property missing or has invalid value")) {
-                    httpExchange.sendResponseHeaders(HttpURLConnection.HTTP_BAD_REQUEST, 200);
-                } else {
-                    httpExchange.sendResponseHeaders(HttpURLConnection.HTTP_OK, 400);
+                    httpExchange.sendResponseHeaders(HttpURLConnection.HTTP_BAD_REQUEST, 0);
+                }
+
+                if(response.contains("true")) {
+                    httpExchange.sendResponseHeaders(HttpURLConnection.HTTP_OK, 0);
                 }
 
                 OutputStream respBody = httpExchange.getResponseBody();
                 writeString(response, respBody);
                 respBody.close();
             } else {
-                httpExchange.sendResponseHeaders(HttpURLConnection.HTTP_BAD_REQUEST, 200);
+                httpExchange.sendResponseHeaders(HttpURLConnection.HTTP_BAD_REQUEST, 0);
             }
 
             httpExchange.getResponseBody().close();
@@ -56,8 +60,7 @@ public class LoginHandler extends FileHandler {
 
     private void writeString(String str, OutputStream os) throws IOException {
         OutputStreamWriter sw = new OutputStreamWriter(os);
-        BufferedWriter bw = new BufferedWriter(sw);
-        bw.write(str);
-        bw.flush();
+        sw.write(str);
+        sw.flush();
     }
 }

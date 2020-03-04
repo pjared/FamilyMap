@@ -7,9 +7,9 @@ public class RegisterRequest {
     String email;
     String firstName;
     String lastName;
-    char gender;
+    String gender;
 
-    public RegisterRequest(String userName, String password, String email, String firstName, String lastName, char gender) {
+    public RegisterRequest(String userName, String password, String email, String firstName, String lastName, String gender) {
         this.userName = userName;
         this.password = password;
         this.email = email;
@@ -69,11 +69,11 @@ public class RegisterRequest {
         this.lastName = lastName;
     }
 
-    public char getGender() {
+    public String getGender() {
         return gender;
     }
 
-    public void setGender(char gender) {
+    public void setGender(String gender) {
         this.gender = gender;
     }
 }

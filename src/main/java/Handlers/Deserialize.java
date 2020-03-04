@@ -9,7 +9,6 @@ public class Deserialize {
     //Use the call MyDataTypevalue = JsonSerializer.deserialize(jsonString, MyDataType.class);
     //to convert
 
-
     public static String serialize(Object inputType) {
         return (new Gson().toJson(inputType));
     }

@@ -3,7 +3,6 @@ package Handlers;
 import DAOs.DataAccessException;
 import Requests.LoadRequest;
 import Service.LoadService;
-import com.sun.net.httpserver.Headers;
 import com.sun.net.httpserver.HttpExchange;
 
 import java.io.*;
@@ -17,7 +16,6 @@ public class LoadHandler extends FileHandler{
     public void handle(HttpExchange exchange) throws IOException {
         try {
             if (exchange.getRequestMethod().toUpperCase().equals("POST")) {
-                Headers reqHeaders = exchange.getRequestHeaders();
                 exchange.sendResponseHeaders(HttpURLConnection.HTTP_OK, 0);
 
                 InputStream reqBody = exchange.getRequestBody();

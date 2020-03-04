@@ -4,6 +4,7 @@ import Model.AuthToken;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class AuthTokenDao {
@@ -41,8 +42,8 @@ public class AuthTokenDao {
     public void update(AuthToken authToken) throws DataAccessException {
         String sql = "UPDATE authToken SET authToken = ? WHERE username = ?";
         try (PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.setString(2, authToken.getUserAuthToken());
-            stmt.setString(1, authToken.getUserName());
+            stmt.setString(1, authToken.getUserAuthToken());
+            stmt.setString(2, authToken.getUserName());
             stmt.executeUpdate();
         } catch (SQLException e) {
             throw new DataAccessException("Error encountered while inserting into the database");
@@ -52,14 +53,42 @@ public class AuthTokenDao {
     /**
      * This function will clear the Auth Token table.
      */
-    public void clear() {}
-
-    /**
-     * Generates a new Auth Token every time the user logs in
-     * and store it in the database
-     * @return the generated auth token
-     */
-    public String genToken() {
-        return "";
+    public void clear() throws DataAccessException {
+        String sql = "DELETE FROM authToken";
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new DataAccessException("Error encountered while trying to clear table");
+        }
     }
+
+    public AuthToken find(String authToken) throws DataAccessException {
+        AuthToken token;
+        ResultSet rs = null;
+
+        String sql = "SELECT * FROM authToken WHERE authToken = ?";
+        //get the user associated with the authToken
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, authToken);
+            rs = stmt.executeQuery();
+            if(rs.next()) {
+                token = new AuthToken(rs.getString("authToken"), rs.getString("username"));
+                return token;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new DataAccessException("Error encountered while finding event");
+        } finally {
+            if(rs != null) {
+                try {
+                    rs.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return null;
+    }
+
 }

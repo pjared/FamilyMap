@@ -22,7 +22,6 @@ public class LoginHandler extends FileHandler {
                 LoginRequest lObject = decereal.deserialize(reqData, LoginRequest.class);
                 String response = decereal.serialize(lService.login(lObject));
 
-
                 if(response.contains("Request property missing or has invalid value")) {
                     httpExchange.sendResponseHeaders(HttpURLConnection.HTTP_BAD_REQUEST, 0);
                 }
@@ -30,7 +29,6 @@ public class LoginHandler extends FileHandler {
                 if(response.contains("true")) {
                     httpExchange.sendResponseHeaders(HttpURLConnection.HTTP_OK, 0);
                 }
-
                 OutputStream respBody = httpExchange.getResponseBody();
                 writeString(response, respBody);
                 respBody.close();

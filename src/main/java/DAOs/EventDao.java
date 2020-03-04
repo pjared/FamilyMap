@@ -101,8 +101,37 @@ public class EventDao {
      * @Param the user's authToken
      * @return the list of events
      */
-    public ArrayList<Event> getEvents(String authToken) {
+    public ArrayList<Event> getEvents(String userName) {
         ArrayList<Event> events = new ArrayList<>();
+        ResultSet rs;
+        Event event;
+
+        String sql = "SELECT * FROM event WHERE associatedUsername = ?";
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, userName);
+            rs = stmt.executeQuery();
+            while(rs.next()) {
+                event = new Event(rs.getString("eventID"),
+                        rs.getString("associatedUsername"), rs.getString("personID"),
+                        rs.getFloat("latitude"), rs.getFloat("longitude"),
+                        rs.getString("country"), rs.getString("city"),
+                        rs.getString("eventType"),rs.getInt("year"));
+                events.add(event);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
         return events;
+    }
+
+    public void deleteUserData(String userName) {
+        String sql = "DELETE FROM event WHERE associatedUsername = ?";
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, userName);
+            stmt.executeQuery(); // this might need to be executeUpdate()
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }

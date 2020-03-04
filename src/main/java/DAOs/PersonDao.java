@@ -102,6 +102,42 @@ public class PersonDao {
      */
     public ArrayList<Person> makeFamTree(int numGenerations) {
         ArrayList<Person> familyTree = new ArrayList<>();
+
         return familyTree;
+    }
+
+    public ArrayList<Person> getFamily(String userName) {
+        ArrayList<Person> familyTree = new ArrayList<>();
+        Person person;
+
+        String sql = "SELECT * FROM person WHERE associatedUsername = ?";
+        ResultSet rs;
+        //Get the events associated with the user - push to array lis
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, userName);
+            rs = stmt.executeQuery();
+            while(rs.next()) {
+                person = new Person(rs.getString("associatedUsername"),
+                        rs.getString("personID"), rs.getString("firstName"),
+                        rs.getString("lastName"), rs.getString("gender"),
+                        rs.getString("fatherID"), rs.getString("motherID"),
+                        rs.getString("spouseID"));
+                familyTree.add(person);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return familyTree;
+    }
+
+    public void deleteUserData(String userName) {
+        String sql = "DELETE FROM person WHERE associatedUsername = ?";
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, userName);
+            stmt.executeQuery(); // this might need to be executeUpdate()
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }

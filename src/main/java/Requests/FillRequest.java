@@ -3,6 +3,11 @@ package Requests;
 public class FillRequest {
     String userName;
     int generations;
+
+    public FillRequest(String userName, int generations) {
+        this.userName = userName;
+        this.generations = generations;
+    }
     //user getters and setters
 
     public String getUserName() {

@@ -1,17 +1,11 @@
 package Handlers;
 
-import DAOs.Connect;
-import DAOs.DataAccessException;
 import Service.PersonService;
 import com.sun.net.httpserver.Headers;
 import com.sun.net.httpserver.HttpExchange;
 
 import java.io.*;
 import java.net.HttpURLConnection;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 
 public class PersonHandler extends FileHandler {
     private PersonService pService = new PersonService();
@@ -27,22 +21,25 @@ public class PersonHandler extends FileHandler {
                 String uri = httpExchange.getRequestURI().toString();
                 if (reqHeaders.containsKey("Authorization")) {
                     String authToken = reqHeaders.getFirst("Authorization");
-                    /* Not going to check the auth token here - need to rewrite all lower classes
-                    if (foundToken(authToken)) {
-                        String response;
-                        String personID = getPersonID(uri);
-                        if(!personID.equals("")) { //TODO: Add a reader to check if there is a given personID
-                            response = Deserialize.serialize(pService.getPerson(authToken, personID));
-                        } else {
-                            response = Deserialize.serialize(pService.getFamily(authToken));
-                        }
+                    String response;
+                    //Reads the url to see if there is a person ID inside it
+                    String personID = getPersonID(uri);
+                    if(!personID.equals("")) {
+                        response = Deserialize.serialize(pService.getPerson(authToken, personID));
+                    } else {
+                        response = Deserialize.serialize(pService.getFamily(authToken));
+                    }
+
+                    if(response.contains("error")) {
+                        httpExchange.sendResponseHeaders(HttpURLConnection.HTTP_BAD_REQUEST, 0);
+                    }
+                    if(response.contains("true")) {
                         httpExchange.sendResponseHeaders(HttpURLConnection.HTTP_OK, 0);
-                        OutputStream respBody = httpExchange.getResponseBody();
-                        writeString(response, respBody);
-                        respBody.close();
-                    }else {
-                        httpExchange.sendResponseHeaders(HttpURLConnection.HTTP_UNAUTHORIZED, 200);
-                    } */
+                    }
+
+                    OutputStream respBody = httpExchange.getResponseBody();
+                    writeString(response, respBody);
+                    respBody.close();
                 } else {
                     httpExchange.sendResponseHeaders(HttpURLConnection.HTTP_UNAUTHORIZED, 0);
                 }
@@ -59,41 +56,9 @@ public class PersonHandler extends FileHandler {
     private String getPersonID(String uri) {
         String personID = "";
         if(uri.length() > 9) {
-            personID = uri.substring(9, uri.length() - 1);
+            personID = uri.substring(8, uri.length());
         }
         return personID;
-    }
-
-    private boolean foundToken(String authToken) {
-        boolean isFound = false;
-        Connect db = new Connect();
-
-        Connection connect = null;
-        try {
-            connect = db.openConnection();
-        } catch (DataAccessException e) {
-            e.printStackTrace();
-        }
-
-        String sql = "SELECT * FROM authToken WHERE authToken = ?";
-        //get the user associated with the authToken
-        ResultSet rs;
-        try (PreparedStatement stmt = connect.prepareStatement(sql)) {
-            stmt.setString(1, authToken);
-            rs = stmt.executeQuery();
-            if(rs.next()) {
-                isFound = true;
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        try {
-            db.closeConnection(true);
-        } catch (DataAccessException e) {
-            e.printStackTrace();
-        }
-        return isFound;
     }
 
     private String readString(InputStream is) throws IOException {

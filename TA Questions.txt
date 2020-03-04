@@ -1,6 +1,5 @@
-Breakpoint @ 31 in loginHandler - insufficient bytes written to stream
-Same happening in register Handler - change https to 0
+Feel that Events valid test should be working but isn't - both one on top and below
 
-Failing clear test because I think i'm checking for authToken in the wrong
+When a user Registers is it supposed to make this info?
 
-DAO tests? -
+Register Valid user works when I run it alon, but not with the other test cases

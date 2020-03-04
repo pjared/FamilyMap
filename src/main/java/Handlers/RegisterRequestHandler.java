@@ -22,9 +22,9 @@ public class RegisterRequestHandler extends FileHandler {
                 String response = decereal.serialize(rService.register(rObject));
 
                 if(response.contains("Username already taken by another user")) {
-                    httpExchange.sendResponseHeaders(HttpURLConnection.HTTP_BAD_REQUEST, 200);
+                    httpExchange.sendResponseHeaders(HttpURLConnection.HTTP_BAD_REQUEST, 0);
                 } else {
-                    httpExchange.sendResponseHeaders(HttpURLConnection.HTTP_OK, 400);
+                    httpExchange.sendResponseHeaders(HttpURLConnection.HTTP_OK, 0);
                 }
                 OutputStream respBody = httpExchange.getResponseBody();
                 writeString(response, respBody);

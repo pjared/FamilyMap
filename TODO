@@ -1,13 +1,14 @@
-
-Need to use the authToken generator in the following classes:
-    -LoadService
-    -RegisterService
-    -LoginService
-
 Still have not written the fill classes
 
-    Priority:
-    Generate random authtokens and put them in correct places, then fix everything with that
-    -Added a generate ID @ 49 @ LoadService.java
-    -Added a generate ID @ 61 @ LoginService.java
-    -Added a generate ID @ 56 @ RegisterService.java
+Person handler and down should be finished, but need to make sure that the array of items are correctly being JSONED
+
+Taken out DB calls from the following services:
+LoginService
+Event/Person services
+
+
+Priority:
+    Make sure that the getUserName and generations works in fillHandler
+
+
+WHERE I LEFT OFF: FINISHING FILL, NEED TO WRITE THE DATA INSERTER FOR IT

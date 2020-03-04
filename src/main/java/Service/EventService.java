@@ -1,15 +1,14 @@
 package Service;
 
+import DAOs.AuthTokenDao;
 import DAOs.Connect;
 import DAOs.DataAccessException;
+import DAOs.EventDao;
+import Model.AuthToken;
 import Model.Event;
 import Results.EventResult;
 
 import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
 
 public class EventService {
     private Connect db = new Connect();
@@ -33,63 +32,38 @@ public class EventService {
             e.printStackTrace();
         }
 
-        //get the username from the event ID, make sure username is with authtoken
-        String sql = "SELECT * FROM event WHERE eventID = ?";
-        ResultSet rs = null;
-        String userName = null;
-        try (PreparedStatement stmt = connect.prepareStatement(sql)) {
-            stmt.setString(1, eventID);
-            rs = stmt.executeQuery();
-            if (rs.next()) {
-                userName = rs.getString("associatedUsername");
-            } else {
-                newEvent = new EventResult(false, "Invalid eventID parameter");
-            }
-        } catch (SQLException e) {
-            newEvent = new EventResult(false, "Internal Server error");
+        AuthTokenDao aDao = new AuthTokenDao(connect);
+        AuthToken token = null;
+        //Use the DAOs to find the specific data we are looking for
+        try {
+            token = aDao.find(authToken);
+        } catch (DataAccessException e) {
+            newEvent = new EventResult(false, "Internal server error");
             e.printStackTrace();
         }
+        if(token == null) {
+            newEvent = new EventResult(false, "error: Invalid auth token");
+        } else {
+            EventDao eDao = new EventDao(connect);
+            try {
+                Event event = eDao.find(eventID);
 
-        if(!(userName == null)) {
-            //Check to find if the username and authtoken match
-            boolean foundUser = false;
-            sql = "SELECT * FROM authToken WHERE username = ? AND authToken = ?";
-            try (PreparedStatement stmt = connect.prepareStatement(sql)) {
-                stmt.setString(1, userName);
-                stmt.setString(2, authToken);
-                rs = stmt.executeQuery();
-                if (rs.next()) {
-                    foundUser = true;
+                //Makes sure the event username matches with AuthToken username
+                if(!event.getAssociatedUsername().equals(token.getUserName())) {
+                    newEvent = new EventResult(false, "error:  Requested person does not belong to this user");
+                } else {
+                    //they match, good to make the new event Result
+                    newEvent = new EventResult(event.getAssociatedUsername(), event.getEventID(),
+                            event.getPersonID(), event.getLatitude(), event.getLongitude(),
+                            event.getCountry(), event.getCity(), event.getEventType(),
+                            event.getYear(), true);
                 }
-            } catch (SQLException e) {
-                newEvent = new EventResult(false, "Internal Server error");
+            } catch (DataAccessException e) {
                 e.printStackTrace();
-            }
-
-            //Did find the user and the authtoken, so continue
-            if(foundUser) {
-                sql = "SELECT * FROM event WHERE eventID = ?";
-                try (PreparedStatement stmt = connect.prepareStatement(sql)) {
-                    stmt.setString(1, eventID);
-                    rs = stmt.executeQuery();
-                    if (rs.next()) {
-                        newEvent = new EventResult(rs.getString("eventID"),
-                                rs.getString("associatedUsername"), rs.getString("personID"),
-                                rs.getFloat("latitude"), rs.getFloat("longitude"),
-                                rs.getString("country"), rs.getString("city"),
-                                rs.getString("eventType"),rs.getInt("year"), true);
-                    } else {
-                        newEvent = new EventResult(false, "Invalid personID parameter");
-                    }
-                } catch (SQLException e) {
-                    newEvent = new EventResult(false, "Internal Server error");
-                    e.printStackTrace();
-                }
-            } else {
-                newEvent = new EventResult(false, "Requested person does not belong to this user");
             }
         }
 
+        //Close the database
         try {
             db.closeConnection(true);
         } catch (DataAccessException e) {
@@ -116,53 +90,30 @@ public class EventService {
             e.printStackTrace();
         }
 
-        String sql = "SELECT * FROM authToken WHERE authToken = ?";
-        ResultSet rs;
-        String userName = null;
-        try (PreparedStatement stmt = connect.prepareStatement(sql)) {
-            stmt.setString(1, authToken);
-            rs = stmt.executeQuery();
-            if (rs.next()) {
-                userName = rs.getString("username");
-            }
-        } catch (SQLException e) {
-            newEvent = new EventResult(false, "Internal Server error");
+        // Create DAO vars to find the data
+        AuthTokenDao aDao = new AuthTokenDao(connect);
+        AuthToken token = null;
+        try {
+            token = aDao.find(authToken);
+        } catch (DataAccessException e) {
+            newEvent = new EventResult(false, "Internal server error");
             e.printStackTrace();
         }
-
-        ArrayList<Event>allEvents = new ArrayList();
-        Event event;
-        if(userName != null) {
-            sql = "SELECT * FROM event WHERE associatedUsername = ?";
-            try (PreparedStatement stmt = connect.prepareStatement(sql)) {
-                stmt.setString(1, userName);
-                rs = stmt.executeQuery();
-                while(rs.next()) {
-                    event = new Event(rs.getString("eventID"),
-                            rs.getString("associatedUsername"), rs.getString("personID"),
-                            rs.getFloat("latitude"), rs.getFloat("longitude"),
-                            rs.getString("country"), rs.getString("city"),
-                            rs.getString("eventType"),rs.getInt("year"));
-                    allEvents.add(event);
-                }
-            } catch (SQLException e) {
-                newEvent = new EventResult(false, "Internal Server error");
-                e.printStackTrace();
-            }
+        // Check the token to see if it is valid
+        if(token == null) {
+            newEvent = new EventResult(false, "error: Invalid request data");
         } else {
-            newEvent = new EventResult(false, "Invalid auth token");
+            //token is valid, get the family for the user
+            EventDao eDao = new EventDao(connect);
+            newEvent = new EventResult(eDao.getEvents(token.getUserName()) ,true);
         }
 
         try {
             db.closeConnection(true);
         } catch (DataAccessException e) {
-            newEvent = new EventResult(false, "Internal server error");
             e.printStackTrace();
         }
 
-        if(allEvents.size() > 0) {
-            newEvent = new EventResult(allEvents, true);
-        }
         return newEvent;
     }
 }

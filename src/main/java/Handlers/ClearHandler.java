@@ -31,7 +31,7 @@ public class ClearHandler extends FileHandler {
                 writeString(respData, respBody);
                 respBody.close();
             } else {
-                exchange.sendResponseHeaders(HttpURLConnection.HTTP_BAD_REQUEST, 400);
+                exchange.sendResponseHeaders(HttpURLConnection.HTTP_BAD_REQUEST, 0);
             }
         } catch (IOException e) {
             exchange.sendResponseHeaders(HttpURLConnection.HTTP_INTERNAL_ERROR, 0);

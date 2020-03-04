@@ -3,14 +3,13 @@ package Service;
 import DAOs.AuthTokenDao;
 import DAOs.Connect;
 import DAOs.DataAccessException;
+import DAOs.UserDao;
 import Model.AuthToken;
+import Model.User;
 import Requests.LoginRequest;
 import Results.LoginResult;
 
 import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 
 public class LoginService {
     private Connect db = new Connect();
@@ -26,41 +25,17 @@ public class LoginService {
         String userName = r.getUserName();
         String passWord = r.getPassword();
 
-        Connection connect = null;
-        try {
-            connect = db.openConnection();
-        } catch (DataAccessException e) {
-            newLogin = new LoginResult(false, "Internal server error");
-            e.printStackTrace();
-        }
-
-        ResultSet rs = null;
-        String sql = "SELECT * FROM users WHERE userName = ? AND passWord = ?";
-        String personID = null;
-        try (PreparedStatement stmt = connect.prepareStatement(sql)) {
-            stmt.setString(1, userName);
-            stmt.setString(2, passWord);
-            rs = stmt.executeQuery();
-            if (rs.next()) {
-                personID = rs.getString("personID");
+        //Check first that user is in the databse
+        if(checkValidUser(userName, passWord)) {
+            //Get the userID from the database
+            String personID = getPersonID(userName, passWord);
+            if (personID != null) {
+                String newAuthToken = GenerateID.genID();
+                updateAuthToken(newAuthToken, userName);
+                newLogin = new LoginResult(newAuthToken, userName, personID, true);
+            } else {
+                newLogin = new LoginResult(false, "Error: Request property missing or has invalid value");
             }
-        } catch (SQLException e) {
-            newLogin = new LoginResult(false, "Internal Server error");
-            e.printStackTrace();
-        }
-
-        try {
-            db.closeConnection(true);
-        } catch (DataAccessException e) {
-            newLogin = new LoginResult(false, "Internal server error");
-            e.printStackTrace();
-            return newLogin;
-        }
-
-        if(personID != null) {
-            String newAuthToken = GenerateID.genID();
-            updateAuthToken(newAuthToken, userName);
-            newLogin = new LoginResult(newAuthToken, userName, personID, true);
         } else {
             newLogin = new LoginResult(false, "Error: Request property missing or has invalid value");
         }
@@ -88,5 +63,61 @@ public class LoginService {
         } catch (DataAccessException e) {
             e.printStackTrace();
         }
+    }
+
+    public String getPersonID(String userName, String passWord) {
+        Connection connect = null;
+        try {
+            connect = db.openConnection();
+        } catch (DataAccessException e) {
+            e.printStackTrace();
+        }
+
+        UserDao uDao = new UserDao(connect);
+        String personID = null;
+        try {
+            personID = uDao.find(userName).getPersonID();
+        } catch (DataAccessException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            db.closeConnection(true);
+        } catch (DataAccessException e) {
+            e.printStackTrace();
+        }
+        return personID;
+    }
+
+    public boolean checkValidUser(String userName, String passWord) {
+        boolean foundUser = false;
+
+        Connection connect = null;
+        try {
+            connect = db.openConnection();
+        } catch (DataAccessException e) {
+            e.printStackTrace();
+        }
+
+        UserDao uDao = new UserDao(connect);
+        User user = null;
+        try {
+            user = uDao.find(userName);
+        } catch (DataAccessException e) {
+            e.printStackTrace();
+        }
+        if(user != null) {
+            if(user.getPassword().equals(passWord)) {
+                foundUser = true;
+            }
+        }
+
+        try {
+            db.closeConnection(true);
+        } catch (DataAccessException e) {
+            e.printStackTrace();
+        }
+
+        return foundUser;
     }
 }

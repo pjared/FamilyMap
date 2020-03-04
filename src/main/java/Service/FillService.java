@@ -1,11 +1,14 @@
 package Service;
 
 import DAOs.*;
+import Model.Event;
+import Model.Person;
 import Model.User;
 import Requests.FillRequest;
 import Results.FillResult;
 
 import java.sql.Connection;
+import java.util.ArrayList;
 
 public class FillService {
     private Connect db = new Connect();
@@ -37,13 +40,71 @@ public class FillService {
         deleteData(r.getUserName());
 
         //Data deleted, time to make all of the data
+        ArrayList<Person> persons = null;
+        try {
+            persons = makeFamilyTree(r.getUserName(), r.getGenerations());
+        } catch (DataAccessException e) {
+            e.printStackTrace();
+        }
 
-        //Can get num persons added by doing a 2 ^ generations
-        /*filled.setMessage("Successfully added " + persons.size() + " persons and "
-                + events.size() + " events to the database." */
-        filled.setMessage("Successfully added ");
+        //Return a peron array, making events with personID and asssociatedUsername
+        ArrayList<Event> events = null;
+        for(Person person: persons) {
+            events = makeEvents(person.getAssociatedUsername(), person.getPersonID());
+        }
+
+        //know that there should be events and persons added
+        filled.setMessage("Successfully added " + persons.size() + " persons and "
+                + events.size() + " events to the database.");
         filled.setSuccess(true);
         return filled;
+    }
+
+    public ArrayList<Person> makeFamilyTree(String username, int generations) throws DataAccessException {
+        ArrayList<Person> persons = new ArrayList<>();
+
+        Connection connect = null;
+        try {
+            connect = db.openConnection();
+        } catch (DataAccessException e) {
+            e.printStackTrace();
+        }
+
+        PersonDao pDao = new PersonDao(connect);
+        persons = pDao.makeFamTree(username, generations);
+
+        try {
+            db.closeConnection(true);
+        } catch (DataAccessException e) {
+            e.printStackTrace();
+        }
+
+        //set father and mother ID throughout
+        return persons;
+    }
+
+    public ArrayList<Event> makeEvents(String userName, String personID) {
+        ArrayList<Event> events = new ArrayList<>();
+
+        Connection connect = null;
+        try {
+            connect = db.openConnection();
+        } catch (DataAccessException e) {
+            e.printStackTrace();
+        }
+
+        EventDao pDao = new EventDao(connect);
+        //Might only need that personID
+        events = pDao.createEvents(personID);
+
+        try {
+            db.closeConnection(true);
+        } catch (DataAccessException e) {
+            e.printStackTrace();
+        }
+        //Birth, Death, and marriage event
+
+        return events;
     }
 
     public void deleteData(String username) {

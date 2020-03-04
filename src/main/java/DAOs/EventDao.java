@@ -134,4 +134,9 @@ public class EventDao {
             e.printStackTrace();
         }
     }
+
+    public ArrayList<Event> createEvents(String personID) {
+        ArrayList<Event> events = new ArrayList<>();
+        return events;
+    }
 }

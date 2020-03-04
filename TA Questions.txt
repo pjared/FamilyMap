@@ -1,5 +1,7 @@
 Feel that Events valid test should be working but isn't - both one on top and below
 
-When a user Registers is it supposed to make this info?
+Register Valid user works when I run it alon, but not with the other test cases : Unknown
 
-Register Valid user works when I run it alon, but not with the other test cases
+Check Load data and make sure it matches data going into event
+
+What kind of data am I deleting? The persons and events but not the user?

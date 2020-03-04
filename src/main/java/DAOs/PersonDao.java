@@ -100,8 +100,31 @@ public class PersonDao {
      * @param numGenerations the amount of generations the user wants to see
      * @return an ArrayList of person objects of the data requested
      */
-    public ArrayList<Person> makeFamTree(int numGenerations) {
+    public ArrayList<Person> makeFamTree(String username, int numGenerations) throws DataAccessException {
         ArrayList<Person> familyTree = new ArrayList<>();
+
+        //Starting off, get the person ID from the user table
+        String personID = null;
+        String sql = "SELECT * FROM users WHERE userName = ?;";
+        ResultSet rs = null;
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, username);
+            rs = stmt.executeQuery();
+            if (rs.next()) {
+                personID = rs.getString("personID");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new DataAccessException("Error encountered while finding event");
+        } finally {
+            if(rs != null) {
+                try {
+                    rs.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
 
         return familyTree;
     }

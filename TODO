@@ -1,14 +1,19 @@
-Still have not written the fill classes
-
-Person handler and down should be finished, but need to make sure that the array of items are correctly being JSONED
-
-Taken out DB calls from the following services:
+Have taken out DB calls from the following services:
 LoginService
 Event/Person services
 
 
 Priority:
-    Make sure that the getUserName and generations works in fillHandler
+    -Make sure that the getUserName and generations works in fillHandler
+    -Once I finish fill, register needs to generate 4 generations of data for that new user
+    -This should fix most of my test failures
 
+FILL GENERATION:
 
-WHERE I LEFT OFF: FINISHING FILL, NEED TO WRITE THE DATA INSERTER FOR IT
+Recursive call for making parents
+Recurse(Person)
+    -Make father
+    -Make mother
+    -Create Marriage(Father, mother) -> passing in personID
+
+Initial person does not have a spouse

@@ -7,8 +7,6 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 public class AuthTokenDao {
-    int idCounter;
-
     private final Connection conn;
 
     public AuthTokenDao(Connection conn) {
@@ -40,7 +38,15 @@ public class AuthTokenDao {
      * This function will connect to the database to update the
      * users auth token
      */
-    public void update() {
+    public void update(AuthToken authToken) throws DataAccessException {
+        String sql = "UPDATE authToken SET authToken = ? WHERE username = ?";
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(2, authToken.getUserAuthToken());
+            stmt.setString(1, authToken.getUserName());
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            throw new DataAccessException("Error encountered while inserting into the database");
+        }
     }
 
     /**

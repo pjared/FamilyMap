@@ -2,7 +2,10 @@ package DAOs;
 
 import Model.User;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class UserDao {
     private final Connection conn;
@@ -11,7 +14,6 @@ public class UserDao {
     {
         this.conn = conn;
     }
-
     /**
      * This function wil connect to the database and with a given User object,
      * will add the data to the database.
@@ -33,9 +35,6 @@ public class UserDao {
             stmt.setString(4, user.getFirstName());
             stmt.setString(5, user.getLastName());
             stmt.setString(6, user.getGender());
-            if(user.getPersonID() == null) {
-                user.setPersonID(generatePersonID());
-            }
             stmt.setString(7, user.getPersonID());
 
             stmt.executeUpdate();
@@ -90,10 +89,6 @@ public class UserDao {
             e.printStackTrace();
             throw new DataAccessException("Error encountered while trying to clear table");
         }
-    }
-
-    public void login() {
-
     }
 
     /**

@@ -2,7 +2,6 @@ package Handlers;
 
 import Requests.LoginRequest;
 import Service.LoginService;
-import com.sun.net.httpserver.Headers;
 import com.sun.net.httpserver.HttpExchange;
 
 import java.io.*;
@@ -16,32 +15,23 @@ public class LoginHandler extends FileHandler {
     public void handle(HttpExchange httpExchange) throws IOException {
         try {
             if (httpExchange.getRequestMethod().toUpperCase().equals("POST")) {
-                // Get the HTTP request headers
-                Headers reqHeaders = httpExchange.getRequestHeaders();
+                InputStream reqBody = httpExchange.getRequestBody();
+                String reqData = readString(reqBody);
+                System.out.println(reqData);
+                LoginRequest lObject = decereal.deserialize(reqData, LoginRequest.class);
+                String response = decereal.serialize(lService.login(lObject));
 
-                if (reqHeaders.containsKey("Authorization")) {
-                    String authToken = reqHeaders.getFirst("Authorization");
-                    if (authToken.equals("afj232hj2332")) {
-                        InputStream reqBody = httpExchange.getRequestBody();
-                        String reqData = readString(reqBody);
-                        System.out.println(reqData);
-                        LoginRequest lObject = decereal.deserialize(reqData, LoginRequest.class);
-                        String response = decereal.serialize(lService.login(lObject));
-
-                        httpExchange.sendResponseHeaders(HttpURLConnection.HTTP_OK, 400);
-                        OutputStream respBody = httpExchange.getResponseBody();
-                        writeString(response, respBody);
-                        respBody.close();
-                    }else {
-                        httpExchange.sendResponseHeaders(HttpURLConnection.HTTP_UNAUTHORIZED, 0);
-                    }
+                if(response.contains("Request property missing or has invalid value")) {
+                    httpExchange.sendResponseHeaders(HttpURLConnection.HTTP_BAD_REQUEST, 200);
                 } else {
-                    httpExchange.sendResponseHeaders(HttpURLConnection.HTTP_BAD_REQUEST, 400);
+                    httpExchange.sendResponseHeaders(HttpURLConnection.HTTP_OK, 400);
                 }
 
-
+                OutputStream respBody = httpExchange.getResponseBody();
+                writeString(response, respBody);
+                respBody.close();
             } else {
-                httpExchange.sendResponseHeaders(HttpURLConnection.HTTP_BAD_REQUEST, 400);
+                httpExchange.sendResponseHeaders(HttpURLConnection.HTTP_BAD_REQUEST, 200);
             }
 
             httpExchange.getResponseBody().close();

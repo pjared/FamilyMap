@@ -2,7 +2,6 @@ package Handlers;
 
 import Requests.RegisterRequest;
 import Service.RegisterService;
-import com.sun.net.httpserver.Headers;
 import com.sun.net.httpserver.HttpExchange;
 
 import java.io.*;
@@ -16,16 +15,17 @@ public class RegisterRequestHandler extends FileHandler {
     public void handle(HttpExchange httpExchange) throws IOException {
         try {
             if (httpExchange.getRequestMethod().toUpperCase().equals("POST")) {
-                // Get the HTTP request headers
-                Headers reqHeaders = httpExchange.getRequestHeaders();
-
                 InputStream reqBody = httpExchange.getRequestBody();
                 String reqData = readString(reqBody);
                 System.out.println(reqData);
                 RegisterRequest rObject = decereal.deserialize(reqData, RegisterRequest.class);
                 String response = decereal.serialize(rService.register(rObject));
 
-                httpExchange.sendResponseHeaders(HttpURLConnection.HTTP_OK, 0);
+                if(response.contains("Username already taken by another user")) {
+                    httpExchange.sendResponseHeaders(HttpURLConnection.HTTP_BAD_REQUEST, 200);
+                } else {
+                    httpExchange.sendResponseHeaders(HttpURLConnection.HTTP_OK, 400);
+                }
                 OutputStream respBody = httpExchange.getResponseBody();
                 writeString(response, respBody);
                 respBody.close();

@@ -69,6 +69,7 @@ public class PersonService {
             }
         } else {
             newPerson = new PersonResult(false, "Invalid auth token");
+            return newPerson;
         }
 
         try {

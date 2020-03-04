@@ -1,6 +1,7 @@
 package Service;
 
 import DAOs.*;
+import Model.AuthToken;
 import Model.Event;
 import Model.Person;
 import Model.User;
@@ -37,10 +38,16 @@ public class LoadService {
             UserDao uDao = new UserDao(connect);
             PersonDao pDao = new PersonDao(connect);
             EventDao eDao = new EventDao(connect);
+            AuthTokenDao aDao = new AuthTokenDao(connect);
 
             try {
+                String userName;
+                AuthToken newToken;
                 for(User user:users) {
                     uDao.insert(user);
+                    userName = user.getUserName();
+                    newToken = new AuthToken(GenerateID.genID(), userName);
+                    aDao.insert(newToken);
                 }
                 for(Person person:persons) {
                     pDao.insert(person);
@@ -58,7 +65,9 @@ public class LoadService {
 
             if(failed == false) {
                 db.closeConnection(true);
-                newLoad.setMessage("Successfully added ");
+                newLoad.setMessage("Successfully added " + users.size() + " users, "
+                                    + persons.size() + " persons, and " + events.size()
+                                    + " events to the database.");
                 newLoad.setSuccess(true);
             }
         } catch (DataAccessException e) {

@@ -520,7 +520,7 @@ public class ServerTest {
             Assertions.assertFalse(loadResult.b().toLowerCase().contains("error"), "message contained an error");
             String[] arrayOfString = loadResult.b().split("(?<=\\D)(?=\\d)|(?<=\\d)(?=\\D)");
             Assertions.assertEquals("Successfully added ", arrayOfString[0], "First part of result message does not match API");
-             Assertions.assertEquals(i, Integer.parseInt(arrayOfString[1]), "Incorrect number of users added");
+            Assertions.assertEquals(i, Integer.parseInt(arrayOfString[1]), "Incorrect number of users added");
             Assertions.assertEquals(" users, ", arrayOfString[2], "Second part of result message does not match API");
             Assertions.assertEquals(j, Integer.parseInt(arrayOfString[3]), "Incorrect number of persons added");
             Assertions.assertEquals(" persons, and ", arrayOfString[4], "Third part of result message does not match API");

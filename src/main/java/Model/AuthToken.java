@@ -5,6 +5,11 @@ public class AuthToken {
     private String userName;
     private String userAuthToken;
 
+    public AuthToken(String authToken, String userName) {
+        this.userAuthToken = authToken;
+        this.userName = userName;
+    }
+
     public String getUserName() {
         return userName;
     }

@@ -35,5 +35,6 @@ public class Server {
         server.createContext("/user/login", new LoginHandler());
         server.createContext("/person", new PersonHandler());
         server.createContext("/event", new EventHandler());
+        server.createContext("/fill", new FillHandler());
     }
 }

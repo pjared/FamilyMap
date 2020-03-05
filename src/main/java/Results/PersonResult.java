@@ -7,7 +7,7 @@ import java.util.ArrayList;
 public class PersonResult {
     ArrayList<Person> data;
 
-    String associateUsername;
+    String associatedUsername;
     String personID;
     String firstName;
     String lastName;
@@ -22,8 +22,8 @@ public class PersonResult {
     public PersonResult() {
     }
 
-    public PersonResult(String associateUsername, String personID, String firstName, String lastName, String gender, String fatherID, String motherID, String spouseID, boolean success) {
-        this.associateUsername = associateUsername;
+    public PersonResult(String associatedUsername, String personID, String firstName, String lastName, String gender, String fatherID, String motherID, String spouseID, boolean success) {
+        this.associatedUsername = associatedUsername;
         this.personID = personID;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -44,12 +44,12 @@ public class PersonResult {
         this.message = message;
     }
 
-    public String getAssociateUsername() {
-        return associateUsername;
+    public String getAssociatedUsername() {
+        return associatedUsername;
     }
 
-    public void setAssociateUsername(String associateUsername) {
-        this.associateUsername = associateUsername;
+    public void setAssociatedUsername(String associatedUsername) {
+        this.associatedUsername = associatedUsername;
     }
 
     public String getPersonID() {

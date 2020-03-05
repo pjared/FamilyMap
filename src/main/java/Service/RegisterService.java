@@ -6,6 +6,7 @@ import DAOs.DataAccessException;
 import DAOs.UserDao;
 import Model.AuthToken;
 import Model.User;
+import Requests.FillRequest;
 import Requests.RegisterRequest;
 import Results.RegisterResult;
 
@@ -60,8 +61,17 @@ public class RegisterService {
             addAuthToken(newAuthToken, r.getUserName());
             newRegister.setPersonID(personID);
             newRegister.setSuccess(true);
+
+            //also have to fill with 4 generations of data
+            fillData(r.getUserName());
         }
         return newRegister;
+    }
+
+    public void fillData(String username) {
+        FillRequest fRequest = new FillRequest(username, 4);
+        FillService fService = new FillService();
+        fService.fill(fRequest);
     }
 
     public void addAuthToken(String authToken, String userName) {

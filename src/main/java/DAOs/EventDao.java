@@ -129,14 +129,9 @@ public class EventDao {
         String sql = "DELETE FROM event WHERE associatedUsername = ?";
         try (PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setString(1, userName);
-            stmt.executeQuery(); // this might need to be executeUpdate()
+            stmt.executeUpdate(); // this might need to be executeUpdate()
         } catch (SQLException e) {
             e.printStackTrace();
         }
-    }
-
-    public ArrayList<Event> createEvents(String personID) {
-        ArrayList<Event> events = new ArrayList<>();
-        return events;
     }
 }

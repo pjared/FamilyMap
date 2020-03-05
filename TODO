@@ -2,18 +2,17 @@ Have taken out DB calls from the following services:
 LoginService
 Event/Person services
 
+Get Random data for inserting into PersonDAO @:
+    -Line 125
+    -Line 141
+    -Line 167*
+    -Line 183*
 
-Priority:
-    -Make sure that the getUserName and generations works in fillHandler
-    -Once I finish fill, register needs to generate 4 generations of data for that new user
-    -This should fix most of my test failures
+NEED TO IMPLEMENT RULES FOR DATA GENERATION LINE 164.
 
-FILL GENERATION:
 
-Recursive call for making parents
-Recurse(Person)
-    -Make father
-    -Make mother
-    -Create Marriage(Father, mother) -> passing in personID
+TESTING:
+    Auth - insert, update, clear, find
+    ALL SERVICE CLASSES
 
-Initial person does not have a spouse
+-Changed username to unique - make sure it doesn't mess up tests

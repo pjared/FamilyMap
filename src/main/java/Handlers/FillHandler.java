@@ -35,7 +35,6 @@ public class FillHandler extends FileHandler{
                 OutputStream respBody = httpExchange.getResponseBody();
                 writeString(response, respBody);
                 respBody.close();
-
             } else {
                 httpExchange.sendResponseHeaders(HttpURLConnection.HTTP_BAD_REQUEST, 0);
             }
@@ -48,9 +47,9 @@ public class FillHandler extends FileHandler{
 
     private String getUsername(String uri) {
         String userName = "";
-        if(uri.length() > 9) {
-            userName = uri.substring(5, uri.length());
-            userName = userName.substring(5, uri.indexOf('/'));
+        if(uri.length() > 5) {
+            userName = uri.substring(6, uri.length());
+            userName = userName.substring(0, userName.indexOf('/'));
         }
         return userName;
     }
@@ -58,8 +57,8 @@ public class FillHandler extends FileHandler{
     private int getGenerations(String uri) {
         String generations = "";
         if(uri.length() > 9) {
-            generations = uri.substring(5, uri.length());
-            generations = generations.substring(5, generations.indexOf('/') + 1);
+            generations = uri.substring(6, uri.length());
+            generations = generations.substring(generations.indexOf('/') + 1, generations.length());
         }
         if(generations == null) {
             return 4;

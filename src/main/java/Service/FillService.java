@@ -1,7 +1,6 @@
 package Service;
 
 import DAOs.*;
-import Model.Event;
 import Model.Person;
 import Model.User;
 import Requests.FillRequest;
@@ -25,7 +24,7 @@ public class FillService {
 
         //check to see if generations is a valid number
         int generations = r.getGenerations();
-        if (generations <= 0) {
+        if (generations < 0) {
             filled = new FillResult("error: Invalid generations parameter", false);
             return filled;
         }
@@ -42,27 +41,22 @@ public class FillService {
         //Data deleted, time to make all of the data
         ArrayList<Person> persons = null;
         try {
-            persons = makeFamilyTree(r.getUserName(), r.getGenerations());
+            makeFamilyTree(r.getUserName(), r.getGenerations());
         } catch (DataAccessException e) {
             e.printStackTrace();
         }
 
-        //Return a peron array, making events with personID and asssociatedUsername
-        ArrayList<Event> events = null;
-        for(Person person: persons) {
-            events = makeEvents(person.getAssociatedUsername(), person.getPersonID());
-        }
-
         //know that there should be events and persons added
-        filled.setMessage("Successfully added " + persons.size() + " persons and "
-                + events.size() + " events to the database.");
+        filled.setMessage("Successfully added " + getNumUsers(r.getUserName()) + " persons and "
+                + getNumEvents(r.getUserName()) + " events to the database.");
+        //Leaving this here, because we need to get the events size with the username
+        //I also probably dont even need to make the array list. Just can do the call for persons and events and get the
+        //numbers through that
         filled.setSuccess(true);
         return filled;
     }
 
-    public ArrayList<Person> makeFamilyTree(String username, int generations) throws DataAccessException {
-        ArrayList<Person> persons = new ArrayList<>();
-
+    private int getNumUsers(String username) {
         Connection connect = null;
         try {
             connect = db.openConnection();
@@ -71,21 +65,17 @@ public class FillService {
         }
 
         PersonDao pDao = new PersonDao(connect);
-        persons = pDao.makeFamTree(username, generations);
+        int numPersons = pDao.getFamily(username).size();
 
         try {
             db.closeConnection(true);
         } catch (DataAccessException e) {
             e.printStackTrace();
         }
-
-        //set father and mother ID throughout
-        return persons;
+        return numPersons;
     }
 
-    public ArrayList<Event> makeEvents(String userName, String personID) {
-        ArrayList<Event> events = new ArrayList<>();
-
+    private int getNumEvents(String username) {
         Connection connect = null;
         try {
             connect = db.openConnection();
@@ -93,21 +83,37 @@ public class FillService {
             e.printStackTrace();
         }
 
-        EventDao pDao = new EventDao(connect);
-        //Might only need that personID
-        events = pDao.createEvents(personID);
+        EventDao eDao = new EventDao(connect);
+        int numEvents = eDao.getEvents(username).size();
 
         try {
             db.closeConnection(true);
         } catch (DataAccessException e) {
             e.printStackTrace();
         }
-        //Birth, Death, and marriage event
-
-        return events;
+        return numEvents;
     }
 
-    public void deleteData(String username) {
+    private void makeFamilyTree(String username, int generations) throws DataAccessException {
+        Connection connect = null;
+        try {
+            connect = db.openConnection();
+        } catch (DataAccessException e) {
+            e.printStackTrace();
+        }
+
+        UserDao uDao = new UserDao(connect);
+        PersonDao pDao = new PersonDao(connect);
+        pDao.makeFamTree(uDao.find(username), generations);
+
+        try {
+            db.closeConnection(true);
+        } catch (DataAccessException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void deleteData(String username) {
         //go into events and persons table and delete all the data
         Connection connect = null;
         try {
@@ -128,7 +134,7 @@ public class FillService {
         }
     }
 
-    public boolean findUser(String userName) {
+    private boolean findUser(String userName) {
         Connection connect = null;
         try {
             connect = db.openConnection();

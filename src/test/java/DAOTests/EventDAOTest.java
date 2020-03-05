@@ -1,4 +1,4 @@
-package test;
+package DAOTests;
 
 import DAOs.Connect;
 import DAOs.DataAccessException;
@@ -9,6 +9,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.sql.Connection;
+import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -38,6 +39,110 @@ public class EventDAOTest {
     }
 
     @Test
+    public void getEventsPass() throws Exception {
+        ArrayList<Event> compareTest = new ArrayList<>();
+        //Make another event to have multiple events, give a different ID.
+        Event anotherEvent = new Event("Biking_123B", "Gale", "Gale123A",
+                10.3f, 10.3f, "Japan", "Ushiku",
+                "Biking_Around", 2016);
+
+        //make an arraylist containing the events we are going to add
+        ArrayList<Event> knownEvents = new ArrayList<>();
+        knownEvents.add(bestEvent);
+        knownEvents.add(anotherEvent);
+
+        try {
+            Connection conn = db.openConnection();
+            EventDao eDao = new EventDao(conn);
+            //insert the data
+            eDao.insert(bestEvent);
+            eDao.insert(anotherEvent);
+
+            //get the list of events with the associated username
+            compareTest = eDao.getEvents("Gale");
+
+            db.closeConnection(true);
+        } catch (DataAccessException e) {
+            db.closeConnection(false);
+        }
+        //Make sure that the data matches
+        assertNotNull(compareTest);
+        assertEquals(knownEvents, compareTest);
+    }
+
+    @Test
+    public void getEventsFail() throws Exception {
+        ArrayList<Event> compareTest = new ArrayList<>();
+        //Make another event to have multiple events, give a different ID.
+        Event anotherEvent = new Event("Biking_123B", "Gale", "Gale123A",
+                10.3f, 10.3f, "Japan", "Ushiku",
+                "Biking_Around", 2016);
+
+        //Make an empty array of events
+        ArrayList<Event> knownEvents = new ArrayList<>();
+        try {
+            Connection conn = db.openConnection();
+            EventDao eDao = new EventDao(conn);
+            //insert the data
+            eDao.insert(bestEvent);
+            eDao.insert(anotherEvent);
+
+            //get the list of events with an incorrect username
+            compareTest = eDao.getEvents("gale");
+
+            db.closeConnection(true);
+        } catch (DataAccessException e) {
+            db.closeConnection(false);
+        }
+        //Make sure that there is no data
+        assertEquals(knownEvents, compareTest);
+    }
+
+    @Test
+    public void deleteDataPass() throws Exception {
+        Event compareTest = null;
+
+        try {
+            Connection conn = db.openConnection();
+            EventDao eDao = new EventDao(conn);
+            //insert the data
+            eDao.insert(bestEvent);
+            //Delete that specific data
+            eDao.deleteUserData("Gale");
+            // Try to find that data
+            compareTest = eDao.find("Biking_123A");
+            db.closeConnection(true);
+        } catch (DataAccessException e) {
+            db.closeConnection(false);
+        }
+        //Make sure if found nothing
+        assertNull(compareTest);
+    }
+
+    @Test
+    public void deleteDataFail() throws Exception {
+        Event compareTest = null;
+
+        try {
+            Connection conn = db.openConnection();
+            EventDao eDao = new EventDao(conn);
+            //insert the data
+            eDao.insert(bestEvent);
+            //Delete with an incorrect username
+            eDao.deleteUserData("gale");
+            // Try to find that data
+            compareTest = eDao.find("Biking_123A");
+            db.closeConnection(true);
+        } catch (DataAccessException e) {
+            db.closeConnection(false);
+        }
+
+        //Make sure that the data is still there
+        assertNotNull(compareTest);
+        assertEquals(bestEvent, compareTest);
+    }
+
+    @Test
     public void insertPass() throws Exception {
         //We want to make sure insert works
         //First lets create an Event that we'll set to null. We'll use this to make sure what we put
@@ -64,9 +169,6 @@ public class EventDAOTest {
         //passes then we know that our insert did put something in, and that it didn't change the
         //data in any way
         assertEquals(bestEvent, compareTest);
-
-        //Data base locks after running the program once
-        //ask TA what is going on, put breakpoint on line 53 and show
     }
 
     @Test

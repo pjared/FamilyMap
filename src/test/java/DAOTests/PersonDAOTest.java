@@ -1,15 +1,17 @@
 
-package test;
+package DAOTests;
 
 import DAOs.Connect;
 import DAOs.DataAccessException;
 import DAOs.PersonDao;
 import Model.Person;
+import Model.User;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.sql.Connection;
+import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -34,6 +36,164 @@ public class PersonDAOTest {
         db.openConnection();
         db.clearTables();
         db.closeConnection(true);
+    }
+
+    @Test
+    public void makeFamilyFail() throws Exception {
+        Person compareTest = null;
+        //Not really sure how to test here
+
+        //Given a user and numGenerations
+        User bestUser = new User("Xx_Faze_xX", "password123", "faze@tryhard.com",
+                "george", "foreman", "m", "1984");
+
+        try {
+            Connection conn = db.openConnection();
+            PersonDao eDao = new PersonDao(conn);
+
+            eDao.makeFamTree(bestUser, -1); //should make nothing - bad generations parameter
+            compareTest = eDao.find("1984"); //try to find him
+            assertNull(compareTest); // make sure there is nothing
+
+            db.closeConnection(true);
+        } catch (DataAccessException e) {
+            db.closeConnection(false);
+        }
+    }
+
+    @Test
+    public void makeFamilyPass() throws Exception {
+        Person compareTest = null;
+
+        //could give bad generations, and wrong user for fail
+
+        //Given a user and numGenerations
+        User bestUser = new User("Xx_Faze_xX", "password123", "faze@tryhard.com",
+                "george", "foreman", "m", "1984");
+
+        try {
+            Connection conn = db.openConnection();
+            PersonDao eDao = new PersonDao(conn);
+
+            eDao.makeFamTree(bestUser, 1); //should make him and parents
+
+            assertEquals(eDao.getFamily("Xx_Faze_xX").size(), 3);
+            compareTest = eDao.find("1984");
+
+            db.closeConnection(true);
+        } catch (DataAccessException e) {
+            db.closeConnection(false);
+        }
+        //Make sure that compare has data in it, although there is no way to do equals testing
+        assertNotNull(compareTest);
+    }
+
+    @Test
+    public void deleteDataPass() throws Exception {
+        Person compareTest = null;
+
+        try {
+            Connection conn = db.openConnection();
+            PersonDao eDao = new PersonDao(conn);
+
+            //insert data into database
+            eDao.insert(bestPerson);
+
+            //Delete all data with that user
+            eDao.deleteUserData("GeorgeFOREMAN");
+
+            compareTest = eDao.find(bestPerson.getPersonID());
+
+
+            db.closeConnection(true);
+        } catch (DataAccessException e) {
+            db.closeConnection(false);
+        }
+        //Data should be null
+        assertNull(compareTest);
+    }
+
+    @Test
+    public void deleteDataFail() throws Exception {
+        Person compareTest = null;
+
+        try {
+            Connection conn = db.openConnection();
+            PersonDao eDao = new PersonDao(conn);
+
+            //insert data into database
+            eDao.insert(bestPerson);
+
+            //Delete all data with that user
+            eDao.deleteUserData("Georgeforearm");
+
+            compareTest = eDao.find(bestPerson.getPersonID());
+
+
+            db.closeConnection(true);
+        } catch (DataAccessException e) {
+            db.closeConnection(false);
+        }
+        //Data should be there
+        assertNotNull(compareTest);
+        assertEquals(bestPerson, compareTest);
+    }
+
+    @Test
+    public void getFamilyFail() throws Exception {
+        ArrayList<Person> compareTest = new ArrayList<>();
+
+        Person anotherPerson = new Person("GeorgeFOREMAN", "1985", "Jabba", "Hut", "U");
+        //Make an array list of people known
+        ArrayList<Person> knownPersons = new ArrayList<>();
+        knownPersons.add(bestPerson);
+        knownPersons.add(anotherPerson);
+
+        try {
+            Connection conn = db.openConnection();
+            PersonDao pDao = new PersonDao(conn);
+
+            pDao.insert(bestPerson);
+            pDao.insert(anotherPerson);
+
+            //try to get the data with wrong username
+            compareTest = pDao.getFamily("GeorgefOREMAN");
+            db.closeConnection(true);
+        } catch (DataAccessException e) {
+            db.closeConnection(false);
+        }
+        //Making sure that the array list isn't equal
+        assertNotEquals(knownPersons, compareTest);
+        //compare test should equal an empty array
+        ArrayList<Person> emptyPerson = new ArrayList<>();
+        assertEquals(emptyPerson, compareTest);
+    }
+
+    @Test
+    public void getFamilyPass() throws Exception {
+        ArrayList<Person> compareTest = new ArrayList<>();
+
+        Person anotherPerson = new Person("GeorgeFOREMAN", "1985", "Jabba", "Hut", "U");
+        //Make an array list of people known
+        ArrayList<Person> knownPersons = new ArrayList<>();
+        knownPersons.add(bestPerson);
+        knownPersons.add(anotherPerson);
+
+        try {
+            Connection conn = db.openConnection();
+            PersonDao pDao = new PersonDao(conn);
+
+            pDao.insert(bestPerson);
+            pDao.insert(anotherPerson);
+
+            compareTest = pDao.getFamily("GeorgeFOREMAN");
+            db.closeConnection(true);
+        } catch (DataAccessException e) {
+            db.closeConnection(false);
+        }
+
+        assertNotNull(compareTest);
+        assertEquals(knownPersons, compareTest);
     }
 
     @Test

@@ -35,7 +35,6 @@ public class LoginHandler extends FileHandler {
             } else {
                 httpExchange.sendResponseHeaders(HttpURLConnection.HTTP_BAD_REQUEST, 0);
             }
-
             httpExchange.getResponseBody().close();
         } catch (IOException e) {
             httpExchange.sendResponseHeaders(HttpURLConnection.HTTP_INTERNAL_ERROR, 0);

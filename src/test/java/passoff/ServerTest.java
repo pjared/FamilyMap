@@ -424,7 +424,7 @@ public class ServerTest {
             EventsResult eventsResult = this.proxy.b(host, port, loginResult.c());
             Assertions.assertEquals(loadRequest.b(PATRICK.g()), eventsResult.c(), "Events of one user don't match loaded events after a fill of a different user");
         } catch (client.Client.ServerConnectionException serverConnectionException) {
-            Assertions.fail(serverConnectionException.getMessage());
+              Assertions.fail(serverConnectionException.getMessage());
         } catch (FileNotFoundException fileNotFoundException) {
             Assertions.fail(fileNotFoundException.getMessage());
         }

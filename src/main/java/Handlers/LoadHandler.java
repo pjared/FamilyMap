@@ -27,7 +27,9 @@ public class LoadHandler extends FileHandler{
                 OutputStream respBody = exchange.getResponseBody();
                 writeString(response, respBody);
                 respBody.close();
+                System.out.println("LoadResponse: " + response);
             }
+            exchange.getResponseBody().close();
         } catch (IOException | DataAccessException e) {
             exchange.sendResponseHeaders(HttpURLConnection.HTTP_INTERNAL_ERROR, 0);
             exchange.getResponseBody().close();

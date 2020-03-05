@@ -1,10 +1,13 @@
 
-package test;
 
+
+
+package DAOTests;
+
+import DAOs.AuthTokenDao;
 import DAOs.Connect;
 import DAOs.DataAccessException;
-import DAOs.UserDao;
-import Model.User;
+import Model.AuthToken;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -14,9 +17,10 @@ import java.sql.Connection;
 import static org.junit.jupiter.api.Assertions.*;
 
 //We will use this to test that our insert method is working and failing in the right ways
-public class UserDAOTest {
+
+public class AuthDAOTest {
     private Connect db;
-    private User bestUser;
+    private AuthToken token;
 
     @BeforeEach
     public void setUp() throws Exception {
@@ -24,8 +28,7 @@ public class UserDAOTest {
         //lets create a new database
         db = new Connect();
         //and a new event with random data
-        bestUser = new User("Xx_Faze_xX", "password123", "faze@tryhard.com",
-                "george", "foreman", "m", "1984");
+        token = new AuthToken("123", "Xx_Faze_xX");
     }
 
     @AfterEach
@@ -36,21 +39,71 @@ public class UserDAOTest {
     }
 
     @Test
-    public void insertPass() throws Exception {
-        User compareTest = null;
+    public void updatePass() throws Exception {
+        AuthToken compareTest = null;
+        //give it a new token and the username
+        AuthToken newToken = new AuthToken("345", "Xx_Faze_xX");
+        try {
+            Connection conn = db.openConnection();
+            AuthTokenDao uDao = new AuthTokenDao(conn);
+
+            //insert the data
+            uDao.insert(token);
+            //update it
+            uDao.update(newToken);
+            ///Find the new token
+            compareTest = uDao.find("345");
+
+            db.closeConnection(true);
+        } catch (DataAccessException e) {
+            db.closeConnection(false);
+        }
+        assertNotNull(compareTest);
+        assertEquals(newToken, compareTest);
+    }
+    @Test
+    public void updateFail() throws Exception {
+        AuthToken compareTest = null;
+
+        //give it an invalid username
+        AuthToken newToken = new AuthToken("345", "FAZE");
 
         try {
             Connection conn = db.openConnection();
-            UserDao uDao = new UserDao(conn);
-            uDao.insert(bestUser);
-            compareTest = uDao.find(bestUser.getUserName());
+            AuthTokenDao uDao = new AuthTokenDao(conn);
+
+            //insert the data
+            uDao.insert(token);
+            //update it
+            uDao.update(newToken);
+            ///Find the new token
+            compareTest = uDao.find("345");
+
+            db.closeConnection(true);
+        } catch (DataAccessException e) {
+            db.closeConnection(false);
+        }
+        //Make sure it did not find any data
+        assertNull(compareTest);
+    }
+    @Test
+    public void insertPass() throws Exception {
+        AuthToken compareTest = null;
+
+        try {
+            Connection conn = db.openConnection();
+            AuthTokenDao uDao = new AuthTokenDao(conn);
+
+            uDao.insert(token);
+            compareTest = uDao.find(token.getUserAuthToken());
+
             db.closeConnection(true);
         } catch (DataAccessException e) {
             db.closeConnection(false);
         }
         assertNotNull(compareTest);
 
-        assertEquals(bestUser, compareTest);
+        assertEquals(token, compareTest);
     }
 
     @Test
@@ -58,10 +111,10 @@ public class UserDAOTest {
         boolean didItWork = true;
         try {
             Connection conn = db.openConnection();
-            UserDao uDao = new UserDao(conn);
+            AuthTokenDao uDao = new AuthTokenDao(conn);
 
-            uDao.insert(bestUser);
-            uDao.insert(bestUser);
+            uDao.insert(token);
+            uDao.insert(token);
             db.closeConnection(true);
         } catch (DataAccessException e) {
             db.closeConnection(false);
@@ -69,11 +122,11 @@ public class UserDAOTest {
         }
         assertFalse(didItWork);
 
-        User compareTest = bestUser;
+        AuthToken compareTest = token;
         try {
             Connection conn = db.openConnection();
-            UserDao uDao = new UserDao(conn);
-            compareTest = uDao.find(bestUser.getUserName());
+            AuthTokenDao uDao = new AuthTokenDao(conn);
+            compareTest = uDao.find(token.getUserAuthToken());
             db.closeConnection(true);
         } catch (DataAccessException e) {
             db.closeConnection(false);
@@ -88,13 +141,13 @@ public class UserDAOTest {
         //add the object
         //search for it
         //Not null, found it
-        User compareTest = null;
+        AuthToken compareTest = null;
 
         try {
             Connection conn = db.openConnection();
-            UserDao uDao = new UserDao(conn);
-            uDao.insert(bestUser);
-            compareTest = uDao.find(bestUser.getUserName());
+            AuthTokenDao uDao = new AuthTokenDao(conn);
+            uDao.insert(token);
+            compareTest = uDao.find(token.getUserAuthToken());
             db.closeConnection(true);
         } catch (DataAccessException e) {
             db.closeConnection(false);
@@ -105,12 +158,12 @@ public class UserDAOTest {
 
     @Test
     public void findFail() throws Exception {
-        User compareTest = null;
+        AuthToken compareTest = null;
 
         try {
             Connection conn = db.openConnection();
-            UserDao uDao = new UserDao(conn);
-            uDao.insert(bestUser);
+            AuthTokenDao uDao = new AuthTokenDao(conn);
+            uDao.insert(token);
             compareTest = uDao.find("1234"); //A random ID
             db.closeConnection(true);
         } catch (DataAccessException e) {
@@ -122,17 +175,17 @@ public class UserDAOTest {
 
     @Test
     public void testClear() throws Exception {
-        User compareTest = null;
+        AuthToken compareTest = null;
         try {
             Connection conn = db.openConnection();
-            UserDao pDao = new UserDao(conn);
-            pDao.insert(bestUser); //insert data
+            AuthTokenDao pDao = new AuthTokenDao(conn);
+            pDao.insert(token); //insert data
 
-            compareTest = pDao.find(bestUser.getUserName());
+            compareTest = pDao.find(token.getUserAuthToken());
             assertNotNull(compareTest); // Check to make sure there is data
 
             pDao.clear();  // Clear it
-            compareTest = pDao.find(bestUser.getUserName());
+            compareTest = pDao.find(token.getUserAuthToken());
             assertNull(compareTest); // Check to make sure data is not there
 
             db.closeConnection(true);

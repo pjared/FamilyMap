@@ -40,9 +40,11 @@ public class EventHandler extends FileHandler{
                     OutputStream respBody = httpExchange.getResponseBody();
                     writeString(response, respBody);
                     respBody.close();
+                    System.out.println("Event Response: " + response);
                 } else {
                     httpExchange.sendResponseHeaders(HttpURLConnection.HTTP_UNAUTHORIZED, 0);
                 }
+                httpExchange.getResponseBody().close();
             } else {
                 httpExchange.sendResponseHeaders(HttpURLConnection.HTTP_BAD_REQUEST, 0);
             }

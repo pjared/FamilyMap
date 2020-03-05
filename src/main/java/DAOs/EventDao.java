@@ -39,7 +39,6 @@ public class EventDao {
             stmt.setString(7, event.getCity());
             stmt.setString(8, event.getEventType());
             stmt.setInt(9, event.getYear());
-
             stmt.executeUpdate();
         } catch (SQLException e) {
             throw new DataAccessException("Error encountered while inserting into the database");
@@ -60,6 +59,7 @@ public class EventDao {
             stmt.setString(1, eventID);
             rs = stmt.executeQuery();
             if (rs.next()) {
+                //Round up to 4 decimals
                 event = new Event(rs.getString("eventID"), rs.getString("associatedUsername"),
                         rs.getString("personID"), rs.getFloat("latitude"), rs.getFloat("longitude"),
                         rs.getString("country"), rs.getString("city"), rs.getString("eventType"),

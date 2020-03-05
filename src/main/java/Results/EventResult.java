@@ -10,8 +10,8 @@ public class EventResult {
     String associatedUsername;
     String eventID;
     String personID;
-    double latitude;
-    double longitude;
+    float latitude;
+    float longitude;
     String country;
     String city;
     String eventType;
@@ -33,7 +33,7 @@ public class EventResult {
         this.message = message;
     }
 
-    public EventResult(String associatedUsername, String eventID, String personID, double latitude, double longitude, String country, String city, String eventType, int year, boolean success) {
+    public EventResult(String associatedUsername, String eventID, String personID, float latitude, float longitude, String country, String city, String eventType, int year, boolean success) {
         this.associatedUsername = associatedUsername;
         this.eventID = eventID;
         this.personID = personID;
@@ -82,7 +82,7 @@ public class EventResult {
         return latitude;
     }
 
-    public void setLatitude(double latitude) {
+    public void setLatitude(float latitude) {
         this.latitude = latitude;
     }
 
@@ -90,7 +90,7 @@ public class EventResult {
         return longitude;
     }
 
-    public void setLongitude(double longitude) {
+    public void setLongitude(float longitude) {
         this.longitude = longitude;
     }
 

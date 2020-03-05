@@ -7,7 +7,8 @@ public class RandomDataGenerator {
     private Random rand = new Random();
 
     RandomDataGenerator() {
-        this.year = rand.nextInt(2021);
+        //this.year = rand.nextInt(1021) + 1000;
+        year = 1000;
     }
 
     public void subtractYears(int years) {

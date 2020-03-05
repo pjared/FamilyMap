@@ -16,7 +16,7 @@ public class PersonDao {
     public PersonDao(Connection conn) {
         this.conn = conn;
     }
-    private RandomDataGenerator generator = new RandomDataGenerator();
+    private RandomDataGenerator generator = null;
 
     /**
      * Takes a Person object and will add the data to the person table
@@ -93,7 +93,6 @@ public class PersonDao {
      * This will generate the data when the user requests to see family data
      *  to a number of generations back by accessing the data base.
      * @param numGenerations the amount of generations the user wants to see
-     * @return an ArrayList of person objects of the data requested
      */
     public void makeFamTree(User baseUser, int numGenerations) throws DataAccessException {
         if(numGenerations < 0) {
@@ -102,6 +101,7 @@ public class PersonDao {
         Person person = new Person(baseUser.getUserName(), baseUser.getPersonID(), baseUser.getFirstName(),
                                     baseUser.getLastName(), baseUser.getGender());
         int generationCount = 0;
+        generator = new RandomDataGenerator();
         makeRecursiveTree(person, numGenerations, generationCount);
     }
 
@@ -109,9 +109,10 @@ public class PersonDao {
         //We are at the final generation, all we need to do is create the person but not their parents
         if(generationCount == numGenerations) {
             createBirth(person);
-            generator.addYears(40);
-            createDeath(person);
             generator.subtractYears(40);
+
+            createDeath(person);
+            generator.addYears(40);
             insert(person);
             return;
         }
@@ -126,22 +127,22 @@ public class PersonDao {
 
         Person mother = new Person(person.getAssociatedUsername(), GenerateID.genID(),
                                     motherName, lastName, "f"); // call for mother, call for father IDs
-
         //set the parents spouse ID's
         mother.setSpouseID(father.getPersonID());
         father.setSpouseID(mother.getPersonID());
-
         //set the users parents ID's
         person.setFatherID(father.getPersonID());
         person.setMotherID(mother.getPersonID());
 
         //Insert into the database, then create events for this person
-
         insert(person);
         createBirth(person);
-        generator.addYears(40);
-        createDeath(person);
         generator.subtractYears(40);
+        createDeath(person);
+        generator.addYears(40);
+
+
+        //makes the marriage for the parents of the current person
         MakeMarriage(mother.getPersonID(), father.getPersonID(), person.getAssociatedUsername());
         generator.subtractYears(30);
 

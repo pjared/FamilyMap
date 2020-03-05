@@ -56,6 +56,81 @@ public class FillService {
         return filled;
     }
 
+    private void makeFamilyTree(String username, int generations) throws DataAccessException {
+        Connection connect = null;
+        try {
+            connect = db.openConnection();
+        } catch (DataAccessException e) {
+            e.printStackTrace();
+        }
+
+        UserDao uDao = new UserDao(connect);
+        PersonDao pDao = new PersonDao(connect);
+        pDao.makeFamTree(uDao.find(username), generations);
+
+        try {
+            db.closeConnection(true);
+        } catch (DataAccessException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /*private void makeFam(int numGenerations, User baseUser) {
+        if(numGenerations < 0) {
+            return;
+        }
+        Person person = new Person(baseUser.getUserName(), baseUser.getPersonID(), baseUser.getFirstName(),
+                baseUser.getLastName(), baseUser.getGender());
+        int generationCount = 0;
+        //generator = new RandomDataGenerator();
+        makeRecursiveTree(person, numGenerations, generationCount);
+    }
+
+    private void makeRecursiveTree(Person person, int numGenerations, int generationCount) throws DataAccessException {
+        //We are at the final generation, all we need to do is create the person but not their parents
+        if(generationCount == numGenerations) {
+            createBirth(person);
+            generator.addYears(40);
+            createDeath(person);
+            generator.subtractYears(40);
+            insert(person);
+            return;
+        }
+        ++generationCount;
+
+        //Need to make this randomly Generated
+        String fatherName = "John";
+        String lastName = "Smith";
+        String motherName = "Mary";
+        Person father = new Person(person.getAssociatedUsername(), GenerateID.genID(),
+                fatherName, lastName, "m"); // call for mother, call for father IDs
+
+        Person mother = new Person(person.getAssociatedUsername(), GenerateID.genID(),
+                motherName, lastName, "f"); // call for mother, call for father IDs
+        //set the parents spouse ID's
+        mother.setSpouseID(father.getPersonID());
+        father.setSpouseID(mother.getPersonID());
+        //set the users parents ID's
+        person.setFatherID(father.getPersonID());
+        person.setMotherID(mother.getPersonID());
+
+        //Insert into the database, then create events for this person
+        insert(person);
+        createBirth(person);
+        generator.addYears(40);
+        createDeath(person);
+        generator.subtractYears(40);
+
+        //makes the marriage for the parents of the current person
+        MakeMarriage(mother.getPersonID(), father.getPersonID(), person.getAssociatedUsername());
+        generator.subtractYears(30);
+
+        makeRecursiveTree(father, numGenerations, generationCount);
+        makeRecursiveTree(mother, numGenerations, generationCount);
+        generator.addYears(30);
+        --generationCount;
+    } */
+
     private int getNumUsers(String username) {
         Connection connect = null;
         try {
@@ -92,25 +167,6 @@ public class FillService {
             e.printStackTrace();
         }
         return numEvents;
-    }
-
-    private void makeFamilyTree(String username, int generations) throws DataAccessException {
-        Connection connect = null;
-        try {
-            connect = db.openConnection();
-        } catch (DataAccessException e) {
-            e.printStackTrace();
-        }
-
-        UserDao uDao = new UserDao(connect);
-        PersonDao pDao = new PersonDao(connect);
-        pDao.makeFamTree(uDao.find(username), generations);
-
-        try {
-            db.closeConnection(true);
-        } catch (DataAccessException e) {
-            e.printStackTrace();
-        }
     }
 
     private void deleteData(String username) {

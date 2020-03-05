@@ -1,7 +1,5 @@
-Have taken out DB calls from the following services:
-LoginService
-Event/Person services
 
+MAKE BETTER RANDOM DATA GENERATION:
 Get Random data for inserting into PersonDAO @:
     -Line 125
     -Line 141
@@ -11,8 +9,5 @@ Get Random data for inserting into PersonDAO @:
 NEED TO IMPLEMENT RULES FOR DATA GENERATION LINE 164.
 
 
-TESTING:
-    Auth - insert, update, clear, find
-    ALL SERVICE CLASSES
 
--Changed username to unique - make sure it doesn't mess up tests
+ALL SERVICE CLASSES

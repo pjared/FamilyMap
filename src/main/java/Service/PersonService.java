@@ -92,16 +92,22 @@ public class PersonService {
                 Person person = pDao.find(personID);
 
                 //Makes sure the personID username matches with AuthToken username
-                if(!person.getAssociatedUsername().equals(token.getUserName())) {
-                    newPerson = new PersonResult(false, "error:  Requested person does not belong to this user");
+                if(person != null) {
+                    if(!person.getAssociatedUsername().equals(token.getUserName())) {
+                        newPerson = new PersonResult(false, "error:  Requested person does not belong to this user");
+                    } else {
+                        //they match, good to make the new person Result
+                        newPerson = new PersonResult(person.getAssociatedUsername(), person.getPersonID(),
+                                person.getFirstName(), person.getLastName(), person.getGender(),
+                                person.getFatherID(), person.getMotherID(), person.getSpouseID(),
+                                true);
+                    }
                 } else {
-                    //they match, good to make the new person Result
-                    newPerson = new PersonResult(person.getAssociatedUsername(), person.getPersonID(),
-                                            person.getFirstName(), person.getLastName(), person.getGender(),
-                                            person.getFatherID(), person.getMotherID(), person.getSpouseID(),
-                                    true);
+                    newPerson = new PersonResult(false, "error:  Invalid personID parameter");
                 }
+
             } catch (DataAccessException e) {
+                newPerson = new PersonResult(false, "error:  Requested person does not belong to this user");
                 e.printStackTrace();
             }
         }

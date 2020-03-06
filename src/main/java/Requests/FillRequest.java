@@ -8,6 +8,10 @@ public class FillRequest {
         this.userName = userName;
         this.generations = generations;
     }
+
+    public FillRequest() {
+
+    }
     //user getters and setters
 
     public String getUserName() {

@@ -5,7 +5,6 @@ import DAOs.Connect;
 import DAOs.DataAccessException;
 import DAOs.PersonDao;
 import Model.Person;
-import Model.User;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -36,56 +35,6 @@ public class PersonDAOTest {
         db.openConnection();
         db.clearTables();
         db.closeConnection(true);
-    }
-
-    @Test
-    public void makeFamilyFail() throws Exception {
-        Person compareTest = null;
-        //Not really sure how to test here
-
-        //Given a user and numGenerations
-        User bestUser = new User("Xx_Faze_xX", "password123", "faze@tryhard.com",
-                "george", "foreman", "m", "1984");
-
-        try {
-            Connection conn = db.openConnection();
-            PersonDao eDao = new PersonDao(conn);
-
-            eDao.makeFamTree(bestUser, -1); //should make nothing - bad generations parameter
-            compareTest = eDao.find("1984"); //try to find him
-            assertNull(compareTest); // make sure there is nothing
-
-            db.closeConnection(true);
-        } catch (DataAccessException e) {
-            db.closeConnection(false);
-        }
-    }
-
-    @Test
-    public void makeFamilyPass() throws Exception {
-        Person compareTest = null;
-
-        //could give bad generations, and wrong user for fail
-
-        //Given a user and numGenerations
-        User bestUser = new User("Xx_Faze_xX", "password123", "faze@tryhard.com",
-                "george", "foreman", "m", "1984");
-
-        try {
-            Connection conn = db.openConnection();
-            PersonDao eDao = new PersonDao(conn);
-
-            eDao.makeFamTree(bestUser, 1); //should make him and parents
-
-            assertEquals(eDao.getFamily("Xx_Faze_xX").size(), 3);
-            compareTest = eDao.find("1984");
-
-            db.closeConnection(true);
-        } catch (DataAccessException e) {
-            db.closeConnection(false);
-        }
-        //Make sure that compare has data in it, although there is no way to do equals testing
-        assertNotNull(compareTest);
     }
 
     @Test

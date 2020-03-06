@@ -56,6 +56,10 @@ public class FillService {
         return filled;
     }
 
+    UserDao uDao;
+    PersonDao pDao;
+    EventDao eDao;
+    private RandomDataGenerator generator = null;
     private void makeFamilyTree(String username, int generations) throws DataAccessException {
         Connection connect = null;
         try {
@@ -64,9 +68,10 @@ public class FillService {
             e.printStackTrace();
         }
 
-        UserDao uDao = new UserDao(connect);
-        PersonDao pDao = new PersonDao(connect);
-        pDao.makeFamTree(uDao.find(username), generations);
+        uDao = new UserDao(connect);
+        pDao = new PersonDao(connect);
+        eDao = new EventDao(connect);
+        makeFam(generations, uDao.find(username));
 
         try {
             db.closeConnection(true);
@@ -75,25 +80,25 @@ public class FillService {
         }
     }
 
-    /*private void makeFam(int numGenerations, User baseUser) {
+    private void makeFam(int numGenerations, User baseUser) throws DataAccessException {
         if(numGenerations < 0) {
             return;
         }
         Person person = new Person(baseUser.getUserName(), baseUser.getPersonID(), baseUser.getFirstName(),
                 baseUser.getLastName(), baseUser.getGender());
         int generationCount = 0;
-        //generator = new RandomDataGenerator();
+        generator = new RandomDataGenerator();
         makeRecursiveTree(person, numGenerations, generationCount);
     }
 
     private void makeRecursiveTree(Person person, int numGenerations, int generationCount) throws DataAccessException {
         //We are at the final generation, all we need to do is create the person but not their parents
         if(generationCount == numGenerations) {
-            createBirth(person);
-            generator.addYears(40);
-            createDeath(person);
+            eDao.createBirth(person, generator.getYear());
             generator.subtractYears(40);
-            insert(person);
+            eDao.createDeath(person, generator.getYear());
+            generator.addYears(40);
+            pDao.insert(person);
             return;
         }
         ++generationCount;
@@ -115,21 +120,21 @@ public class FillService {
         person.setMotherID(mother.getPersonID());
 
         //Insert into the database, then create events for this person
-        insert(person);
-        createBirth(person);
-        generator.addYears(40);
-        createDeath(person);
+        pDao.insert(person);
+        eDao.createBirth(person, generator.getYear());
         generator.subtractYears(40);
+        eDao.createDeath(person, generator.getYear());
+        generator.addYears(40);
 
         //makes the marriage for the parents of the current person
-        MakeMarriage(mother.getPersonID(), father.getPersonID(), person.getAssociatedUsername());
+        eDao.MakeMarriage(mother.getPersonID(), father.getPersonID(), person.getAssociatedUsername(), generator.getYear());
         generator.subtractYears(30);
 
         makeRecursiveTree(father, numGenerations, generationCount);
         makeRecursiveTree(mother, numGenerations, generationCount);
         generator.addYears(30);
         --generationCount;
-    } */
+    }
 
     private int getNumUsers(String username) {
         Connection connect = null;

@@ -47,16 +47,19 @@ public class EventService {
             EventDao eDao = new EventDao(connect);
             try {
                 Event event = eDao.find(eventID);
-
-                //Makes sure the event username matches with AuthToken username
-                if(!event.getAssociatedUsername().equals(token.getUserName())) {
-                    newEvent = new EventResult(false, "error:  Requested person does not belong to this user");
-                } else {
-                    //they match, good to make the new event Result
-                    newEvent = new EventResult(event.getAssociatedUsername(), event.getEventID(),
-                            event.getPersonID(), event.getLatitude(), event.getLongitude(),
-                            event.getCountry(), event.getCity(), event.getEventType(),
-                            event.getYear(), true);
+                if(event == null) {
+                    newEvent = new EventResult(false, "error: Invalid eventID parameter");
+                }
+                else {
+                    if(!event.getAssociatedUsername().equals(token.getUserName())) {
+                        newEvent = new EventResult(false, "error:  Requested person does not belong to this user");
+                    } else {
+                        //they match, good to make the new event Result
+                        newEvent = new EventResult(event.getAssociatedUsername(), event.getEventID(),
+                                event.getPersonID(), event.getLatitude(), event.getLongitude(),
+                                event.getCountry(), event.getCity(), event.getEventType(),
+                                event.getYear(), true);
+                    }
                 }
             } catch (DataAccessException e) {
                 e.printStackTrace();

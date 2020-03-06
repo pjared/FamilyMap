@@ -68,13 +68,13 @@ public class RegisterService {
         return newRegister;
     }
 
-    public void fillData(String username) {
+    private void fillData(String username) {
         FillRequest fRequest = new FillRequest(username, 4);
         FillService fService = new FillService();
         fService.fill(fRequest);
     }
 
-    public void addAuthToken(String authToken, String userName) {
+    private void addAuthToken(String authToken, String userName) {
         Connection connect = null;
         try {
             connect = db.openConnection();

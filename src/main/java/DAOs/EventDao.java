@@ -1,6 +1,8 @@
 package DAOs;
 
 import Model.Event;
+import Model.Person;
+import Service.GenerateID;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -131,6 +133,55 @@ public class EventDao {
             stmt.setString(1, userName);
             stmt.executeUpdate(); // this might need to be executeUpdate()
         } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    //It's hard to test these because they're void functions, so I leave it to fill
+    public void MakeMarriage(String motherID, String fatherID, String userName, int year) {
+        //give event the connection from here, then add
+        EventDao eDao = new EventDao(conn);
+        float latitude = (float) 40.2338;
+        float longitude = (float) 5.5;
+        String getCountry = "Paraguay";
+        String getCity = "Caracas";
+
+        try {
+            eDao.insert(new Event(GenerateID.genID(), userName, fatherID, latitude, longitude, getCountry,
+                    getCity,  "marriage", year));
+            eDao.insert(new Event(GenerateID.genID(), userName, motherID, latitude, longitude, getCountry,
+                    getCity, "marriage", year));
+        } catch (DataAccessException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void createDeath(Person person, int year) {
+        String eventID = GenerateID.genID();
+        EventDao eDao = new EventDao(conn);
+        float latitude = (float) 40.2338;
+        float longitude = (float) 5.5;
+        String getCountry = "Paraguay";
+        String getCity = "Caracas";
+        try {
+            eDao.insert(new Event(eventID, person.getAssociatedUsername(), person.getPersonID(), latitude, longitude, getCountry,
+                    getCity,  "birth", year));
+        } catch (DataAccessException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void createBirth(Person person, int year) {
+        String eventID = GenerateID.genID();
+        EventDao eDao = new EventDao(conn);
+        float latitude = (float) 40.2338;
+        float longitude = (float) 5.5;
+        String getCountry = "Paraguay";
+        String getCity = "Caracas";
+        try {
+            eDao.insert(new Event(eventID, person.getAssociatedUsername(), person.getPersonID(), latitude, longitude, getCountry,
+                    getCity,  "death", year));
+        } catch (DataAccessException e) {
             e.printStackTrace();
         }
     }

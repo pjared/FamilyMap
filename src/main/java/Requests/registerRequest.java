@@ -18,17 +18,6 @@ public class RegisterRequest {
         this.gender = gender;
     }
 
-    /**
-     * This function will take a JSON when a user creates a new account and
-     * will generate a response returned in JSON format if everything is correct
-     * @param jsonString the JSON string given by API call
-     * @return the response of the call in JSON format
-     */
-    public String register(String jsonString) {
-
-        return "";
-    }
-
     public String getUserName() {
         return userName;
     }

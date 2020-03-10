@@ -6,6 +6,7 @@ import Model.User;
 import Requests.FillRequest;
 import Results.FillResult;
 
+import java.io.FileNotFoundException;
 import java.sql.Connection;
 import java.util.ArrayList;
 
@@ -44,6 +45,8 @@ public class FillService {
             makeFamilyTree(r.getUserName(), r.getGenerations());
         } catch (DataAccessException e) {
             e.printStackTrace();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
         }
 
         //know that there should be events and persons added
@@ -60,7 +63,7 @@ public class FillService {
     PersonDao pDao;
     EventDao eDao;
     private RandomDataGenerator generator = null;
-    private void makeFamilyTree(String username, int generations) throws DataAccessException {
+    private void makeFamilyTree(String username, int generations) throws DataAccessException, FileNotFoundException {
         Connection connect = null;
         try {
             connect = db.openConnection();
@@ -80,7 +83,7 @@ public class FillService {
         }
     }
 
-    private void makeFam(int numGenerations, User baseUser) throws DataAccessException {
+    private void makeFam(int numGenerations, User baseUser) throws DataAccessException, FileNotFoundException {
         if(numGenerations < 0) {
             return;
         }
@@ -91,7 +94,7 @@ public class FillService {
         makeRecursiveTree(person, numGenerations, generationCount);
     }
 
-    private void makeRecursiveTree(Person person, int numGenerations, int generationCount) throws DataAccessException {
+    private void makeRecursiveTree(Person person, int numGenerations, int generationCount) throws DataAccessException, FileNotFoundException {
         //We are at the final generation, all we need to do is create the person but not their parents
         if(generationCount == numGenerations) {
             eDao.createBirth(person, generator.getYear());
@@ -106,7 +109,7 @@ public class FillService {
         //Need to make this randomly Generated
         String fatherName = "John";
         String lastName = "Smith";
-        String motherName = "Mary";
+        String motherName = generator.getFemaleName();
         Person father = new Person(person.getAssociatedUsername(), GenerateID.genID(),
                 fatherName, lastName, "m"); // call for mother, call for father IDs
 

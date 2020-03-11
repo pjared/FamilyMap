@@ -1,14 +1,18 @@
 package DAOs;
 
+import Model.City;
 import Model.Event;
 import Model.Person;
 import Service.GenerateID;
+import Service.RandomDataGenerator;
 
+import java.io.FileNotFoundException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Random;
 
 public class EventDao {
     private final Connection conn;
@@ -137,20 +141,38 @@ public class EventDao {
         }
     }
 
+    RandomDataGenerator generator = new RandomDataGenerator();
+    City newCity = null;
+    public void rollCity() {
+        if(newCity == null) {
+            try {
+                newCity = generator.getCity();
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+        }
+        Random rand = new Random();
+        //1 in 4 chance that they will move somewhere new
+        if(rand.nextInt(4) == 0) {
+            try {
+                newCity = generator.getCity();
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
     //It's hard to test these because they're void functions, so I leave it to fill
     public void MakeMarriage(String motherID, String fatherID, String userName, int year) {
         //give event the connection from here, then add
         EventDao eDao = new EventDao(conn);
-        float latitude = (float) 40.2338;
-        float longitude = (float) 5.5;
-        String getCountry = "Paraguay";
-        String getCity = "Caracas";
+        rollCity();
 
         try {
-            eDao.insert(new Event(GenerateID.genID(), userName, fatherID, latitude, longitude, getCountry,
-                    getCity,  "marriage", year));
-            eDao.insert(new Event(GenerateID.genID(), userName, motherID, latitude, longitude, getCountry,
-                    getCity, "marriage", year));
+            eDao.insert(new Event(GenerateID.genID(), userName, fatherID, newCity.getLatitude(), newCity.getLongitude(),
+                    newCity.getCountry(), newCity.getCity(),  "marriage", year));
+            eDao.insert(new Event(GenerateID.genID(), userName, motherID, newCity.getLatitude(), newCity.getLongitude(),
+                    newCity.getCountry(), newCity.getCity(), "marriage", year));
         } catch (DataAccessException e) {
             e.printStackTrace();
         }
@@ -159,13 +181,11 @@ public class EventDao {
     public void createDeath(Person person, int year) {
         String eventID = GenerateID.genID();
         EventDao eDao = new EventDao(conn);
-        float latitude = (float) 40.2338;
-        float longitude = (float) 5.5;
-        String getCountry = "Paraguay";
-        String getCity = "Caracas";
+        rollCity();
+
         try {
-            eDao.insert(new Event(eventID, person.getAssociatedUsername(), person.getPersonID(), latitude, longitude, getCountry,
-                    getCity,  "birth", year));
+            eDao.insert(new Event(eventID, person.getAssociatedUsername(), person.getPersonID(), newCity.getLatitude(),
+                    newCity.getLongitude(), newCity.getCountry(), newCity.getCity(),  "birth", year));
         } catch (DataAccessException e) {
             e.printStackTrace();
         }
@@ -174,13 +194,11 @@ public class EventDao {
     public void createBirth(Person person, int year) {
         String eventID = GenerateID.genID();
         EventDao eDao = new EventDao(conn);
-        float latitude = (float) 40.2338;
-        float longitude = (float) 5.5;
-        String getCountry = "Paraguay";
-        String getCity = "Caracas";
+        rollCity();
+
         try {
-            eDao.insert(new Event(eventID, person.getAssociatedUsername(), person.getPersonID(), latitude, longitude, getCountry,
-                    getCity,  "death", year));
+            eDao.insert(new Event(eventID, person.getAssociatedUsername(), person.getPersonID(), newCity.getLatitude(),
+                    newCity.getLongitude(), newCity.getCountry(), newCity.getCity(),  "death", year));
         } catch (DataAccessException e) {
             e.printStackTrace();
         }

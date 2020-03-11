@@ -107,14 +107,15 @@ public class FillService {
         ++generationCount;
 
         //Need to make this randomly Generated
-        String fatherName = "John";
-        String lastName = "Smith";
+        String fatherName = generator.getFemaleName();
+        String lastName;
+
         String motherName = generator.getFemaleName();
         Person father = new Person(person.getAssociatedUsername(), GenerateID.genID(),
-                fatherName, lastName, "m"); // call for mother, call for father IDs
+                fatherName, person.getLastName(), "m"); // call for mother, call for father IDs
 
         Person mother = new Person(person.getAssociatedUsername(), GenerateID.genID(),
-                motherName, lastName, "f"); // call for mother, call for father IDs
+                motherName, generator.getSurName(), "f"); // call for mother, call for father IDs
         //set the parents spouse ID's
         mother.setSpouseID(father.getPersonID());
         father.setSpouseID(mother.getPersonID());

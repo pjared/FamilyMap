@@ -168,7 +168,7 @@ public class EventDao {
         EventDao eDao = new EventDao(conn);
         rollCity();
 
-        try {
+            try {
             eDao.insert(new Event(GenerateID.genID(), userName, fatherID, newCity.getLatitude(), newCity.getLongitude(),
                     newCity.getCountry(), newCity.getCity(),  "marriage", year));
             eDao.insert(new Event(GenerateID.genID(), userName, motherID, newCity.getLatitude(), newCity.getLongitude(),
